@@ -173,29 +173,10 @@ public class FlashableZipCreater extends JFrame implements Runnable, MouseMotion
 	 * files will be added here
 	 */
 	private void initFilesList() {
-		ArrayList<File> list0 = FilesUtils
-				.searchrecursively(new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_APP), ".apk");
-
-		ArrayList<File> list1 = FilesUtils.searchrecursively(
-				new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_PRIV_APP), ".apk");
-
-		ArrayList<File> list2 = FilesUtils.searchrecursively(
-				new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK), ".apk");
-
-		ArrayList<File> list3 = FilesUtils.searchrecursively(
-				new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK), ".jar");
-
-		for (File f : list0)
-			this.fileToAdd.add(f);
-		for (File f : list1)
-			this.fileToAdd.add(f);
-		for (File f : list2)
-			this.fileToAdd.add(f);
-		for (File f : list3)
-			this.fileToAdd.add(f);
+		this.fileToAdd.addAll(FilesUtils.searchrecursively(systemFolder, ".apk"));
+		this.fileToAdd.addAll(FilesUtils.searchrecursively(systemFolder, ".jar"));
 		bar.setMinimum(0);
 		bar.setMaximum(this.fileToAdd.size());
-
 	}
 
 	@Override
