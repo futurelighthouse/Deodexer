@@ -281,7 +281,7 @@ public class Cfg {
 			if (currentLang == null)
 				currentLang = S.ENGLISH;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.setCurrentLang(S.ENGLISH);
 		}
 
@@ -295,7 +295,7 @@ public class Cfg {
 		try {
 			showDeodexAlert = Integer.parseInt(PropReader.getProp(SHOW_DEODEX_ALERT, new File(CFG_PATH)));
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.setShowDeodexAlert(true);
 			Logger.appendLog("[Cfg][EX]" + e.getStackTrace());
 		}
@@ -304,7 +304,7 @@ public class Cfg {
 		try {
 			showExitAlert = Integer.parseInt(PropReader.getProp(SHOW_EXIT_ALERT, new File(CFG_PATH)));
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.setShowExitAlert(true);
 			Logger.appendLog("[Cfg][EX]" + e.getStackTrace());
 		}
@@ -313,7 +313,7 @@ public class Cfg {
 		try {
 			showThreadAlert = Integer.parseInt(PropReader.getProp(SHOW_THREAD_ALERT, new File(CFG_PATH)));
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.setShowThreadAlert(true);
 			Logger.appendLog("[Cfg][EX]" + e.getStackTrace());
 		}
@@ -323,7 +323,7 @@ public class Cfg {
 			Cfg.maxJobs = Integer.parseInt(PropReader.getProp(MAX_JOBS_PROP, new File(CFG_PATH)));
 			Cfg.setMaxJobs(maxJobs);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.setMaxJobs(Cfg.getIdealMaxThread());
 			Logger.appendLog("[Cfg][EX]" + e.getStackTrace());
 		}
@@ -336,7 +336,7 @@ public class Cfg {
 			else
 				R.setFont("Arial");
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.currentFont = "Arial";
 			R.setFont("Arial");
 		}
@@ -348,7 +348,7 @@ public class Cfg {
 				Cfg.maxHeadSize = S.DEFAULT_HEAP_SIZE;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.maxHeadSize = S.DEFAULT_HEAP_SIZE;
 		}
 
@@ -356,7 +356,7 @@ public class Cfg {
 		try {
 			Cfg.compresionMethod = Integer.parseInt(PropReader.getProp(Cfg.COMP_METHOD_PROP, new File(CFG_PATH)));
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.compresionMethod = 0;
 			Logger.appendLog("[Cfg][EX]" + e.getStackTrace());
 		}
@@ -364,7 +364,7 @@ public class Cfg {
 			//TODO
 			Cfg.checkForUpdate = Integer.parseInt(PropReader.getProp(Cfg.CHECK_UPDATE_PROP, new File(CFG_PATH)));
 		} catch (Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 			Cfg.setCheckForUpdate(1);
 		}
 	}
