@@ -244,14 +244,14 @@ public class JarWorker implements Runnable, Watchable {
 				Logger.appendLog("[JarWorker][I] processing " + new JarObj(jar).getAbsoluteName() + ".jar ...");
 				boolean success = deodexJar(jarObj);
 				if (success) {
-					Logger.appendLog("[JarWorker][I] " + new JarObj(jar).getAbsoluteName() + ".jar [SUCCESS]");
+					Logger.appendLog("[JarWorker][I] " + new JarObj(jar).getAbsoluteName() + ".jar "+R.getString("log.success"));
 					logPan.addLog(
-							R.getString(S.LOG_INFO) + "[" + new JarObj(jar).getAbsoluteName() + ".jar]" + " [SUCCESS]");
+							R.getString(S.LOG_INFO) + "[" + new JarObj(jar).getAbsoluteName() + ".jar]" + R.getString("log.success"));
 				} else {
 					jarObj.reverseMove();
 					Logger.appendLog("[JarWorker][E] " + new JarObj(jar).getAbsoluteName() + ".jar [FAILED]");
 					logPan.addLog(R.getString(S.LOG_WARNING) + "[" + new JarObj(jar).getAbsoluteName() + ".jar]"
-							+ " [FAILED]");
+							+ R.getString("log.fail"));
 					FailTracker.addFailed(jarObj.getOrigJar());
 				}
 				this.progressBar.setValue(this.progressBar.getValue() + 1);
