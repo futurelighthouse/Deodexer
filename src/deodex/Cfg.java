@@ -202,7 +202,7 @@ public class Cfg {
 
 		File tmp = null;
 		if (currentLang == null)
-			return new File("lang/en.prop");
+			return new File(PathUtils.getExcutionPath()+"/lang/en.prop");
 		for (int i = 0; i < availableLang.size(); i++) {
 			if (availableLang.get(i).equals(currentLang)) {
 				tmp = langFiles.get(i);
