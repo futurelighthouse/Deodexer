@@ -36,11 +36,9 @@ public class AdbUtils {
 	public static final String NULL_DEVICE = "null|null";
 
 	/**
-	 * will extract /system/app ,/system/priv-app ,/system/framework
-	 * ,/system/*.sqsh files and build.prop of course system/framwork needs to
-	 * be extracted so the only case this returns false is when it can't extract
-	 * build.prop or framework folder or on a non zero adb exit code.
-	 * 
+	 * extract /system from device to the given location
+	 * the method uses adb host native binary to extract 
+	 * we test fail from the exit code of adb 
 	 * @param outputFolder
 	 *            the folder in which the extracted files will be stored (needs
 	 *            to be a directory) the directory will be created make sure you
@@ -48,76 +46,33 @@ public class AdbUtils {
 	 * @param logger
 	 *            : the logger who will handle the logs and show them to the
 	 *            user do not send null
-	 * @return boolean : true only if build.prop and framework were extracted
+	 * @return boolean : true only if framework and buildprop were extracted
 	 */
 	public static boolean extractSystem(File outputFolder, LoggerPan logger) {
 		AdbUtils.killServer();
 		AdbUtils.startServer();
-		int sdk = 999;
-		File buildPropOut = new File(outputFolder.getAbsolutePath() + "/build.prop");
-		File privAppOut = new File(outputFolder.getAbsolutePath() + "/priv-app");
-		File appOut = new File(outputFolder.getAbsolutePath() + "/app");
-		File framworkOut = new File(outputFolder.getAbsolutePath() + "/framework");
-
-		logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000029"));
-		String[] cmd = { S.getAdbBin(), "pull", "/system/build.prop", buildPropOut.getAbsolutePath() };
-		boolean copyprop = CmdUtils.runCommand(cmd) == 0;
-		if (!copyprop) {
-			logger.addLog(R.getString(S.LOG_ERROR) + R.getString("0000030"));
-			return false;
+		String[] remoteFiles = {"/app","/priv-app","/framework","/build.prop","/vendor"
+								,"/odex.app.sqsh","/odex.priv-app.sqsh","/odex.framework.sqsh",
+								"/vendor","/plugin","/data-app"};
+		int[] exitStatus = new int[remoteFiles.length];
+		Runtime rt = Runtime.getRuntime();
+		for (int i = 0 ; i < remoteFiles.length ; i++){
+			String remoteFile = remoteFiles[i];
+			String[] cmd = {S.getAdbBin(), "pull", "/system"+remoteFile, new File(outputFolder.getAbsolutePath()+remoteFile).getAbsolutePath()};
+			exitStatus[i] = -999;
+			try {
+				Process p = rt.exec(cmd);
+				AdbStreamReader stdReader = new AdbStreamReader(p.getInputStream(), logger ,R.getString(S.LOG_INFO));
+				AdbStreamReader errReader = new AdbStreamReader(p.getErrorStream(),logger , R.getString(S.LOG_INFO));
+				stdReader.start();
+				errReader.start();
+				exitStatus[i] = p.waitFor();
+				} catch (Exception e){
+					e.printStackTrace();
+				}
 		}
-		logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000031"));
-
-		logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000032"));
-		try {
-			sdk = Integer.parseInt(PropReader.getProp(S.SDK_LEVEL_PROP, buildPropOut));
-		} catch (Exception e) {
-			logger.addLog(R.getString(S.LOG_ERROR) + R.getString("0000033"));
-		}
-		logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000034") + sdk);
-
-		if (sdk > 18) {
-			logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000035"));
-			String[] privAppCmd = { S.getAdbBin(), "pull", "system/priv-app", privAppOut.getAbsolutePath() };
-			boolean privAppStatus = CmdUtils.runCommand(privAppCmd) == 0;
-			if (!privAppStatus) {
-				logger.addLog(R.getString(S.LOG_WARNING + R.getString("0000036")));
-			}
-			logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000037"));
-
-		}
-		// copy system app
-		logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000038"));
-		String[] appCmd = { S.getAdbBin(), "pull", "/system/app", appOut.getAbsolutePath() };
-		boolean appStatus = CmdUtils.runCommand(appCmd) == 0;
-		if (!appStatus) {
-			logger.addLog(R.getString(S.LOG_WARNING + R.getString("0000039")));
-		}
-		logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000040"));
-
-		// check for squash files
-		File appSquashOutput = new File(outputFolder.getAbsolutePath() + File.separator + "odex.app.sqsh");
-		File privAppSquashOutput = new File(outputFolder.getAbsolutePath() + File.separator + "odex.priv-app.sqsh");
-		String[] appSquashCmd = { S.getAdbBin(), "pull", "/system/odex.app.sqsh", appSquashOutput.getAbsolutePath() };
-		String[] privAppSquashCmd = { S.getAdbBin(), "pull", "/system/odex.priv-app.sqsh",
-				privAppSquashOutput.getAbsolutePath() };
-		boolean squash = CmdUtils.runCommand(appSquashCmd) == 0;
-		CmdUtils.runCommand(privAppSquashCmd);
-		// TODO externalize this
-
-		if (squash)
-			logger.addLog(R.getString(S.LOG_INFO)
-					+ ".sqsh Files were detected it will be extracted no action needed from user... ");
-
-		// copy framwork
-		logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000041"));
-		String[] framCmd = { S.getAdbBin(), "pull", "/system/framework", framworkOut.getAbsolutePath() };
-		boolean framStatus = CmdUtils.runCommand(framCmd) == 0;
-		if (framStatus)
-			logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000042"));
-		else
-			logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000043"));
-		return framStatus;
+		boolean success = exitStatus[2] == 0 && exitStatus[3] == 0;
+		return success;
 	}
 
 	/**
@@ -265,5 +220,4 @@ public class AdbUtils {
 		String[] cmd = { S.getAdbBin(), "start-server" };
 		return CmdUtils.runCommand(cmd) == 0;
 	}
-
 }
