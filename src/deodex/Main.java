@@ -164,6 +164,7 @@ public class Main {
 			logOsInfo();
 			HostInfo.logInfo();
 			if (Cfg.isFirstLaunch()) {
+				Cfg.setCurrentLang(S.ENGLISH);
 				R.initResources();
 				EventQueue.invokeLater(new Runnable() {
 
@@ -175,6 +176,7 @@ public class Main {
 				});
 
 			} else {
+				Cfg.readCfg();
 				R.initResources();
 				S.initTempFolders();
 				EventQueue.invokeLater(new Runnable() {
