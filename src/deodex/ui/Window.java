@@ -165,6 +165,15 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 				Alerts.showAdvancedSettingsDialog(getThisFram());
 			} else if (source.equals(checkUpdateMenu)) {
 				Alerts.showUpdateAlertDialog(getThisFram());
+			} else if (source.equals(createZipMenuItem)){
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						String[] cmd = { "java", "-jar", S.TOOLS_JAR.getAbsolutePath(), "CFZ" };
+						CmdUtils.runCommand(cmd);
+					}
+				}).start();
+
 			}
 
 		}
@@ -222,6 +231,8 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 	JMenu toolsMenu = new JMenu(R.getString("tools"));
 
 	JMenuItem batchZipalignSignMenuItem = new JMenuItem(R.getString("batch.zipalign.sign.menu.items"));
+	// TODO: externalize this
+	JMenuItem createZipMenuItem = new JMenuItem(R.getString("create.zip.btn"));
 	// About
 	JMenu aboutMenu = new JMenu(R.getString("about.menu"));
 	JMenuItem aboutThisMenu = new JMenuItem(R.getString("About.this.program"));
@@ -536,9 +547,10 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 		exitMenuItem.setFont(R.getCouriernormal());
 		// attach tools Items
 		this.toolsMenu.add(this.batchZipalignSignMenuItem);
+		this.toolsMenu.add(createZipMenuItem);
 		toolsMenu.setFont(R.getCouriernormal());
 		batchZipalignSignMenuItem.setFont(R.getCouriernormal());
-
+		createZipMenuItem.setFont(R.getCouriernormal());
 		// attach about Items
 		this.aboutMenu.add(checkUpdateMenu);
 		this.aboutMenu.add(this.aboutThisMenu);
@@ -553,6 +565,7 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 		aboutThisMenu.addActionListener(new MenuItemsListener());
 		checkUpdateMenu.addActionListener(new MenuItemsListener());
 		this.settingsItem.addActionListener(new MenuItemsListener());
+		createZipMenuItem.addActionListener(new MenuItemsListener());
 	}
 
 	public void initProgress() {
