@@ -28,6 +28,7 @@ import deodex.Cfg;
 import deodex.R;
 import deodex.S;
 import deodex.controlers.LoggerPan;
+import deodex.controlers.ProcessHandler;
 
 public class AdbUtils {
 	/**
@@ -120,31 +121,19 @@ public class AdbUtils {
 
 		String[] cmd = { S.getAdbBin(), "devices" };
 
-		Runtime rt = Runtime.getRuntime();
-		Process p = null;
 
 		try {
-			p = rt.exec(cmd);
-
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-
+			ProcessHandler ph = new ProcessHandler(cmd , null);
+			int exitValue = ph.excute();
 			// read the output from the command
-			ArrayList<String> output = new ArrayList<String>();
-			String s = null;
-			while ((s = stdInput.readLine()) != null) {
-				output.add(s);
+			ArrayList<String> output = ph.getGlobalProcessOutput();
+			System.out.println("we are here ..");
+			for (String s : output){
+				System.out.println(s);
 			}
-			// read any errors from the attempted command
-			ArrayList<String> errors = new ArrayList<String>();
-			while ((s = stdError.readLine()) != null) {
-				errors.add(s);
-			}
-
-			int exitValue = p.waitFor();
 			if (exitValue != 0) {
 				logger.addLog(R.getString(S.LOG_ERROR) + R.getString("0000021"));
-				Logger.appendLog("[AdbUtils][E]" + "adb exited with no zero code error=" + exitValue);
+				Logger.appendLog("[AdbUtils][E]" + "adb exited with non zero code error=" + exitValue);
 				return NULL_DEVICE;
 			}
 			if (output.size() > 3) {

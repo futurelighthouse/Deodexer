@@ -96,20 +96,6 @@ public class ProcessHandler {
 	}
 
 	/**
-	 * @return the logger
-	 */
-	public LoggerPan getLogger() {
-		return logger;
-	}
-
-	/**
-	 * @param logger the logger to set
-	 */
-	public void setLogger(LoggerPan logger) {
-		this.logger = logger;
-	}
-
-	/**
 	 * @return cmd : the command 
 	 */
 	public String[] getCommand() {
