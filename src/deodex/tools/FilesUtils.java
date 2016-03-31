@@ -198,7 +198,7 @@ public class FilesUtils {
 			}
 		}
 		if (folder.listFiles() == null || folder.listFiles().length <= 0) {
-			Logger.appendLog("[FilesUtils][I] deleting because it is umpty " + folder.getAbsolutePath());
+			Logger.appendLog("[FilesUtils][I] deleting because it is empty " + folder.getAbsolutePath());
 			folder.delete();
 		}
 	}
@@ -315,16 +315,14 @@ public class FilesUtils {
 				if (odexCount <= 0) {
 					// TODO is this good ? make some research !
 					if (!log.getClass().equals(CmdLogger.class))
-						JOptionPane.showMessageDialog((Component) log,
-								R.getString("0000130"),
-								R.getString("0000132"), JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog((Component) log, R.getString("0000130"), R.getString("0000132"),
+								JOptionPane.ERROR_MESSAGE);
 					return false;
 				} else if (bootcount <= 0) {
 					// TODO is this good ? make some research !
 					if (!log.getClass().equals(CmdLogger.class))
-						JOptionPane.showMessageDialog((Component) log,
-								R.getString("0000131"),
-								R.getString("0000133"), JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog((Component) log, R.getString("0000131"), R.getString("0000133"),
+								JOptionPane.ERROR_MESSAGE);
 					return false;
 				}
 			} catch (Exception e) {
@@ -333,35 +331,33 @@ public class FilesUtils {
 
 		}
 
-
 		// lets detect if the rom is have squashfs
 		File appSquash = new File(systemFolder.getAbsolutePath() + File.separator + "odex.app.sqsh");
 		File privAppSquash = new File(systemFolder.getAbsolutePath() + File.separator + "odex.priv-app.sqsh");
 		File framSquash = new File(systemFolder.getAbsolutePath() + File.separator + "odex.framework.sqsh");
-		
+
 		boolean isSquash = false;
 		if (appSquash.exists() || privAppSquash.exists() || framSquash.exists()) {
-			log.addLog(R.getString(S.LOG_INFO)
-					+ R.getString("0000128"));
+			log.addLog(R.getString(S.LOG_INFO) + R.getString("0000128"));
 			isSquash = true;
 			if (!UnsquashUtils.haveUnsquash()) {
-				log.addLog(R.getString(S.LOG_ERROR)
-						+ R.getString("0000129"));
+				log.addLog(R.getString(S.LOG_ERROR) + R.getString("0000129"));
 				return false;
 			}
 		}
-		// is boot .oat there may be it's in squash file ? lets skip this check if sqsh files were detected
-		if(!framSquash.exists())
-		if (sdkLevel > 20) {
-			ArrayList<File> bootOat = FilesUtils.searchExactFileNames(
-					new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK), "boot.oat");
-			if (bootOat == null || bootOat.size() <= 0) {
-				log.addLog(R.getString(S.LOG_ERROR) + R.getString("log.no.boot.oat"));
-				return false;
-			} else {
-				SessionCfg.setBootOatFile(bootOat.get(0));
+		// is boot .oat there may be it's in squash file ? lets skip this check
+		// if sqsh files were detected
+		if (!framSquash.exists())
+			if (sdkLevel > 20) {
+				ArrayList<File> bootOat = FilesUtils.searchExactFileNames(
+						new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK), "boot.oat");
+				if (bootOat == null || bootOat.size() <= 0) {
+					log.addLog(R.getString(S.LOG_ERROR) + R.getString("log.no.boot.oat"));
+					return false;
+				} else {
+					SessionCfg.setBootOatFile(bootOat.get(0));
+				}
 			}
-		}
 		// Session Settings set them
 		SessionCfg.isSquash = isSquash;
 		SessionCfg.setSdk(sdkLevel);
@@ -382,36 +378,40 @@ public class FilesUtils {
 		S.setTempDir(systemFolder);
 		log.addLog(R.getString(S.LOG_INFO) + R.getString("log.chosen.folder") + systemFolder);
 		int apkCount = getOdexCount(new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_APP))
-				+ getOdexCount(new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_PRIV_APP))+
-				(new File(systemFolder.getAbsolutePath()+"/"+"plugin").exists() ?
-						getOdexCount(new File(systemFolder.getAbsolutePath()+"/"+"plugin")) : 0 )+
-				(new File(systemFolder.getAbsolutePath()+"/"+"vendor").exists() ?
-						getOdexCount(new File(systemFolder.getAbsolutePath()+"/"+"vendor")) : 0 )+
-				
-				(new File(systemFolder.getAbsolutePath()+"/"+"data-app").exists() ?
-						getOdexCount(new File(systemFolder.getAbsolutePath()+"/"+"data-app")):0);
+				+ getOdexCount(new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_PRIV_APP))
+				+ (new File(systemFolder.getAbsolutePath() + "/" + "plugin").exists()
+						? getOdexCount(new File(systemFolder.getAbsolutePath() + "/" + "plugin")) : 0)
+				+ (new File(systemFolder.getAbsolutePath() + "/" + "vendor").exists()
+						? getOdexCount(new File(systemFolder.getAbsolutePath() + "/" + "vendor")) : 0)
+				+
+
+		(new File(systemFolder.getAbsolutePath() + "/" + "data-app").exists()
+				? getOdexCount(new File(systemFolder.getAbsolutePath() + "/" + "data-app")) : 0);
 		int jarCounts = getOdexCount(new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK));
 		if (jarCounts + apkCount <= 0 && !isSquash) {
 			log.addLog(R.getString(S.LOG_INFO) + R.getString("no.odexFiles.wereFound"));
 			return false;
 		}
-		if (!isSquash){
-			log.addLog(R.getString(S.LOG_INFO) + R.getString("log.there.is") + " "+apkCount + " apks "
+		if (!isSquash) {
+			log.addLog(R.getString(S.LOG_INFO) + R.getString("log.there.is") + " " + apkCount + " apks "
 					+ R.getString("log.to.be.deodexed"));
-			log.addLog(R.getString(S.LOG_INFO) + R.getString("log.there.is") + " "+jarCounts + " jars "
+			log.addLog(R.getString(S.LOG_INFO) + R.getString("log.there.is") + " " + jarCounts + " jars "
 					+ R.getString("log.to.be.deodexed"));
 		} else {
 			log.addLog(R.getString(S.LOG_INFO) + R.getString("0000127"));
 			log.addLog(R.getString(S.LOG_INFO) + R.getString("0000126"));
 
 		}
-		if(new File(systemFolder.getAbsolutePath()+"/"+"plugin").exists() && new File(systemFolder.getAbsolutePath()+"/"+"plugin").isDirectory()){
+		if (new File(systemFolder.getAbsolutePath() + "/" + "plugin").exists()
+				&& new File(systemFolder.getAbsolutePath() + "/" + "plugin").isDirectory()) {
 			log.addLog(R.getString(S.LOG_INFO) + R.getString("0000125"));
 		}
-		if(new File(systemFolder.getAbsolutePath()+"/"+"vendor").exists() && new File(systemFolder.getAbsolutePath()+"/"+"vendor").isDirectory()){
+		if (new File(systemFolder.getAbsolutePath() + "/" + "vendor").exists()
+				&& new File(systemFolder.getAbsolutePath() + "/" + "vendor").isDirectory()) {
 			log.addLog(R.getString(S.LOG_INFO) + R.getString("0000124"));
 		}
-		if(new File(systemFolder.getAbsolutePath()+"/"+"data-app").exists() && new File(systemFolder.getAbsolutePath()+"/"+"data-app").isDirectory()){
+		if (new File(systemFolder.getAbsolutePath() + "/" + "data-app").exists()
+				&& new File(systemFolder.getAbsolutePath() + "/" + "data-app").isDirectory()) {
 			log.addLog(R.getString(S.LOG_INFO) + "/data-app folder detected it will be deodexed if necessary ...");
 		}
 		return true;

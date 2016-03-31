@@ -39,25 +39,25 @@ import deodex.tools.DesktopUtils;
  *
  */
 public class LinksPan extends JPanel {
-	private static final String[] URLS = {"http://goo.gl/Rp7e7v","https://goo.gl/RCWR4l",
+	private static final String[] URLS = { "http://goo.gl/Rp7e7v", "https://goo.gl/RCWR4l",
 			"https://github.com/lord-ralf-adolf/Lordroid_One_Deodexer_To_Rule_Them_ALL/issues/new",
 			"http://forum.xda-developers.com/devdb/project/?id=13851#bugReporter",
 			"http://forum.xda-developers.com/devdb/project/?id=13851#reviews",
 			"http://forum.xda-developers.com/devdb/project/?id=13851#featureRequests",
 			"https://github.com/lord-ralf-adolf/Lordroid_One_Deodexer_To_Rule_Them_ALL/releases/latest",
-			"mailto:rachidboudjelida@gmail.com"};
+			"mailto:rachidboudjelida@gmail.com" };
 	ArrayList<JButton> buttons = new ArrayList<JButton>();
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public LinksPan(){
-		this.setSize(600,600);
+	public LinksPan() {
+		this.setSize(600, 600);
 		this.setLayout(null);
 		JPanel container = new JPanel();
 		container.setBounds(40, 40, 520, 490);
-		GridLayout layout =new GridLayout(8,0);
+		GridLayout layout = new GridLayout(8, 0);
 		layout.setHgap(20);
 		layout.setVgap(20);
 		container.setLayout(layout);
@@ -78,23 +78,23 @@ public class LinksPan extends JPanel {
 		buttons.add(githubRelease);
 		buttons.add(eMailDev);
 
-		for (JButton b : buttons){
+		for (JButton b : buttons) {
 			b.setFont(R.getNormalFont());
 			b.setFocusable(false);
 			b.addActionListener(new Actions());
 			container.add(b);
 		}
-		
+
 		this.add(container);
 	}
-	
-	class Actions implements ActionListener{
+
+	class Actions implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			for (int i = 0 ; i< buttons.size();i++){
-				if(buttons.get(i).equals(arg0.getSource())){
+			for (int i = 0; i < buttons.size(); i++) {
+				if (buttons.get(i).equals(arg0.getSource())) {
 					try {
 						DesktopUtils.openWebpage(new URL(URLS[i]));
 					} catch (MalformedURLException e) {
@@ -104,6 +104,6 @@ public class LinksPan extends JPanel {
 				}
 			}
 		}
-		
+
 	}
 }

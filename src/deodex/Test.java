@@ -26,12 +26,12 @@ import deodex.tools.FilesUtils;
 
 public class Test {
 
-	public static void main(String[] args) throws IOException  {
-			// just for testing purpose 
-		for (int i = 0 ; i< 2 ; i++){
+	public static void main(String[] args) throws IOException {
+		// just for testing purpose
+		for (int i = 0; i < 2; i++) {
 			URL url = new URL("http://prodroid.eu5.org/lordroid/release.php");
 			url.openConnection();
-			System.out.println(""+i);
+			System.out.println("" + i);
 			FilesUtils.copyFile(url.openStream(), new File("/tmp/link"));
 		}
 	}

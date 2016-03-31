@@ -189,17 +189,24 @@ public class Main {
 				});
 
 			}
-
-		} else if (args.length > 2) {
-			Logger.logToStd = false;
-			printHelp();
-		} else if (args.length == 1 && args[0].equals("h")) {
-			Logger.logToStd = false;
-			R.initResources();
-			printHelp();
 		} else {
 			Logger.logToStd = false;
-			argsReader(args);
+			if (Cfg.isFirstLaunch()) {
+				// Init config
+				Cfg.setCurrentLang(S.ENGLISH);
+			} else {
+				// Load config
+				Cfg.readCfg();
+			}
+			if (args.length > 2) {
+				printHelp();
+			} else if (args.length == 1 && args[0].equals("h")) {
+				R.initResources();
+				printHelp();
+			} else {
+				argsReader(args);
+			}
+
 		}
 	}
 
@@ -275,7 +282,7 @@ public class Main {
 		}
 		SessionCfg.setSign(sign);
 		SessionCfg.setZipalign(zipalign);
-		MainWorker mainWorker = new MainWorker(systemFolder, logger, 1,new CommandLineWorker(createZip));
+		MainWorker mainWorker = new MainWorker(systemFolder, logger, 1, new CommandLineWorker(createZip));
 		Thread t = new Thread(mainWorker);
 		t.start();
 	}

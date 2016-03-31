@@ -20,6 +20,7 @@ package batchtools;
 
 import com.alee.laf.WebLookAndFeel;
 
+import createZip.CreateFlashableZip;
 import deodex.Cfg;
 import deodex.R;
 
@@ -31,6 +32,8 @@ public class Main {
 
 		if (args != null && args.length != 0 && args[0].equals("BZW")) {
 			new ZipalignWindow(null);
+		} else if (args != null && args.length != 0 && args[0].equals("CFZ")) {
+			new CreateFlashableZip();
 		} else {
 			System.out.println("You are not supposed to run this jar file !");
 		}

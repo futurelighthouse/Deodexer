@@ -214,8 +214,7 @@ public class ZipalignWindow extends JFrame implements ThreadWatcher, MouseListen
 		// TOOL tip
 		zipalignChk.setToolTipText(R.getString("0000055"));
 		signChk.setToolTipText(R.getString("0000056"));
-		browseBtn.setToolTipText(
-				R.getString("0000057"));
+		browseBtn.setToolTipText(R.getString("0000057"));
 
 		// add components
 		rootPannel.add(browseField);

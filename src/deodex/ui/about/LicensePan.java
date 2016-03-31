@@ -21,7 +21,6 @@
  */
 package deodex.ui.about;
 
-
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.net.URL;
@@ -43,9 +42,10 @@ public class LicensePan extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	JEditorPane text ;
-	public LicensePan(){
-		this.setSize(600,600);
+	JEditorPane text;
+
+	public LicensePan() {
+		this.setSize(600, 600);
 		this.setLayout(new BorderLayout());
 		this.setBackground(R.PANELS_BACK_COLOR);
 		this.setBounds(0, 0, 600, 600);
@@ -57,7 +57,7 @@ public class LicensePan extends JPanel {
 			e.printStackTrace();
 		}
 		text.setEditable(false);
-		this.add(new JScrollPane(text),BorderLayout.CENTER);
+		this.add(new JScrollPane(text), BorderLayout.CENTER);
 
 	}
 }

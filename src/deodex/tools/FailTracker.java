@@ -55,13 +55,12 @@ public class FailTracker {
 		}
 	}
 
-	
-	public static void putToZero(){
+	public static void putToZero() {
 		failCount = 0;
 		failedFiles = new ArrayList<String>();
 		long yourmilliseconds = System.currentTimeMillis();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd | HH:mm:ss"); // dd/MMM/yyyy
 		Date resultdate = new Date(yourmilliseconds);
-		append("Session started at "+sdf.format(resultdate));
+		append("Session started at " + sdf.format(resultdate));
 	}
 }

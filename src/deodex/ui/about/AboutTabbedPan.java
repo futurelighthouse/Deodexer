@@ -24,24 +24,23 @@ import javax.swing.JTabbedPane;
 
 import deodex.R;
 
-public class AboutTabbedPan extends JTabbedPane{
+public class AboutTabbedPan extends JTabbedPane {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	public AboutTabbedPan(){
+
+	public AboutTabbedPan() {
 		super(JTabbedPane.LEFT);
 		this.setSize(770, 700);
-		this.setBounds(0,0,770,700);
+		this.setBounds(0, 0, 770, 700);
 		this.addTab(R.getString("about.menu"), new AboutPan());
 		this.addTab(R.getString("0000112"), new LinksPan());
 		this.addTab(R.getString("0000113"), new LicensePan());
 		this.setBackgroundAt(2, Color.WHITE);
 		this.setBackgroundAt(0, Color.WHITE);
-		
+
 	}
-	
 
 }

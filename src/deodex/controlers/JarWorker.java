@@ -167,7 +167,8 @@ public class JarWorker implements Runnable, Watchable {
 		threadWatcher.updateProgress();
 
 		// phase 5
-		Logger.appendLog("[JarWorker][I][" + jar.getAbsoluteName() + "] abotut to put classes file(s) back in jar file");
+		Logger.appendLog(
+				"[JarWorker][I][" + jar.getAbsoluteName() + "] abotut to put classes file(s) back in jar file");
 
 		ArrayList<File> list = new ArrayList<File>();
 		list.add(jar.getTmpClasses());
@@ -201,7 +202,8 @@ public class JarWorker implements Runnable, Watchable {
 
 		// phase 6
 		boolean putBack = false;
-		Logger.appendLog("[JarWorker][I][" + jar.getAbsoluteName() + "] about to copy file back to it's original folder");
+		Logger.appendLog(
+				"[JarWorker][I][" + jar.getAbsoluteName() + "] about to copy file back to it's original folder");
 		putBack = jar.getTmpJar().renameTo(jar.getOrigJar()); // FilesUtils.copyFile(jar.getTmpJar(),
 																// jar.getOrigJar());
 		if (!putBack) {
@@ -244,14 +246,15 @@ public class JarWorker implements Runnable, Watchable {
 				Logger.appendLog("[JarWorker][I] processing " + new JarObj(jar).getAbsoluteName() + ".jar ...");
 				boolean success = deodexJar(jarObj);
 				if (success) {
-					Logger.appendLog("[JarWorker][I] " + new JarObj(jar).getAbsoluteName() + ".jar [SUCCESS]");
-					logPan.addLog(
-							R.getString(S.LOG_INFO) + "[" + new JarObj(jar).getAbsoluteName() + ".jar]" + " [SUCCESS]");
+					Logger.appendLog("[JarWorker][I] " + new JarObj(jar).getAbsoluteName() + ".jar "
+							+ R.getString("log.success"));
+					logPan.addLog(R.getString(S.LOG_INFO) + "[" + new JarObj(jar).getAbsoluteName() + ".jar]"
+							+ R.getString("log.success"));
 				} else {
 					jarObj.reverseMove();
 					Logger.appendLog("[JarWorker][E] " + new JarObj(jar).getAbsoluteName() + ".jar [FAILED]");
 					logPan.addLog(R.getString(S.LOG_WARNING) + "[" + new JarObj(jar).getAbsoluteName() + ".jar]"
-							+ " [FAILED]");
+							+ R.getString("log.fail"));
 					FailTracker.addFailed(jarObj.getOrigJar());
 				}
 				this.progressBar.setValue(this.progressBar.getValue() + 1);

@@ -19,8 +19,8 @@
 file.launguage=Italiano
 #
 #
-app.version=v1.25
-app.name=Lordroid One Dedodexer To Rule Them All v1.25
+app.version=v1.26
+app.name=Lordroid One Dedodexer To Rule Them All v1.26
 #
 # first window first launch !
 app.welcome=Benvenuto in LODTRTA!
@@ -253,3 +253,8 @@ create.zip.btn=Crea zip flashabile
 0000142=<html><p>Non è stato possibile eseguire il deodex dei seguenti file</p>
 0000143=<p>Creare uno zip flashable può portare a <b>bootloop</b> o il dispositivo potrebbe non riavviarsi proprio più!</p>
 0000144=<p>Sei <b>CERTO</b> di voler proseguire?</p></html>
+0000145=No apks or no jars in selected folder 
+0000146= *.odex files detected in the chosen folder]
+0000147=[be careful this creator will only copy apks and jars]
+0000148=[The chosen folder is valid]
+0000149=No folder selected 

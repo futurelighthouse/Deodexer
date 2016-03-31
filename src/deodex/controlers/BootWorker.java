@@ -157,8 +157,8 @@ public class BootWorker implements Runnable, Watchable {
 	@Override
 	public void run() {
 		for (File file : bootFiles) {
-			Logger.appendLog("[BootWorker][I] processing " + file.getName().substring(0, file.getName().lastIndexOf("."))
-					+ ".jar ");
+			Logger.appendLog("[BootWorker][I] processing "
+					+ file.getName().substring(0, file.getName().lastIndexOf(".")) + ".jar ");
 			boolean success = deoDexBootFile(file);
 			if (success) {
 				log.addLog(R.getString(S.LOG_INFO) + "[" + file.getName().substring(0, file.getName().lastIndexOf("."))
@@ -166,7 +166,7 @@ public class BootWorker implements Runnable, Watchable {
 			} else {
 				log.addLog(R.getString(S.LOG_ERROR) + "[" + file.getName().substring(0, file.getName().lastIndexOf("."))
 						+ ".jar]" + " [FAILED ]");
-				FailTracker.addFailed(new File(file.getName().substring(0, file.getName().lastIndexOf("."))+".jar"));
+				FailTracker.addFailed(new File(file.getName().substring(0, file.getName().lastIndexOf(".")) + ".jar"));
 			}
 			progressBar.setValue(progressBar.getValue() + 1);
 			progressBar.setString(R.getString("progress.bootFiles") + " " + this.percent());

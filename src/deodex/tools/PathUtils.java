@@ -27,9 +27,10 @@ import deodex.S;
 
 public class PathUtils {
 	/**
-	 * call this method to get where are we located on the file system
-	 * don't abuse on it's use call it once on every execution and save 
-	 * the value because this will not change 
+	 * call this method to get where are we located on the file system don't
+	 * abuse on it's use call it once on every execution and save the value
+	 * because this will not change
+	 * 
 	 * @return our current location on the fileSystem
 	 */
 	public static String getExcutionPath() {

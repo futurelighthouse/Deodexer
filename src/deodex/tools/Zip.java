@@ -80,8 +80,8 @@ public class Zip {
 	 * @return added true only is files were added successfully
 	 */
 	public static boolean addFilesToExistingZipAapt(File tempApk, ArrayList<File> classesFiles) {
-		// lets make sure we delete the old classes files otherwise it will 
-		// 
+		// lets make sure we delete the old classes files otherwise it will
+		//
 		ArrayList<String> rmCmd = new ArrayList<String>();
 		rmCmd.add(S.getAapt());
 		rmCmd.add("r");
@@ -94,7 +94,7 @@ public class Zip {
 		for (int i = 0; i < rmCmd.size(); i++)
 			cmdRm[i] = rmCmd.get(i);
 		CmdUtils.runCommand(cmdRm);
-		
+
 		ArrayList<String> cmds = new ArrayList<String>();
 		cmds.add(S.getAapt());
 		cmds.add("a");
@@ -283,9 +283,9 @@ public class Zip {
 	/**
 	 * 
 	 * @param pathToIgnore
-	 *            the path that will be ignored when putting in the zip
-	 *            exemple /system/app/blabla.apk with ignored path /system
-	 *            will be is /app/blabla.apk in zip
+	 *            the path that will be ignored when putting in the zip exemple
+	 *            /system/app/blabla.apk with ignored path /system will be is
+	 *            /app/blabla.apk in zip
 	 * @param fileToAdd
 	 *            a File to add to the given zip
 	 * @param zipFile

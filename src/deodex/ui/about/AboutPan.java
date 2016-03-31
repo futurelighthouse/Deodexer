@@ -40,32 +40,22 @@ public class AboutPan extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public AboutPan(){
-		//this.setSize(600,600);
-		//this.setBounds(0,0,600,600);
+	public AboutPan() {
+		// this.setSize(600,600);
+		// this.setBounds(0,0,600,600);
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.WHITE);
 		JLabel title = new JLabel();
-		String text = 
-				 R.getString("0000099")
-				+R.getString("0000100")
-				+R.getString("0000101")
-				+R.getString("0000102")
-				+R.getString("0000103")
-				+R.getString("0000104")
-				+R.getString("0000105")
-				+R.getString("0000106")
-				+R.getString("0000107")
-				+R.getString("0000108")
-				+R.getString("0000109")
-				+R.getString("0000110")
-				+R.getString("0000111");
-		
-		title.setText(text);
-		//title .setBounds(10, -20, 580, 600);
-		title .setFont(R.getNormalFont());
-		title .setBackground(Color.WHITE);
+		String text = R.getString("0000099") + R.getString("0000100") + R.getString("0000101") + R.getString("0000102")
+				+ R.getString("0000103") + R.getString("0000104") + R.getString("0000105") + R.getString("0000106")
+				+ R.getString("0000107") + R.getString("0000108") + R.getString("0000109") + R.getString("0000110")
+				+ R.getString("0000111");
 
-		this.add(title,BorderLayout.CENTER);
+		title.setText(text);
+		// title .setBounds(10, -20, 580, 600);
+		title.setFont(R.getNormalFont());
+		title.setBackground(Color.WHITE);
+
+		this.add(title, BorderLayout.CENTER);
 	}
 }
