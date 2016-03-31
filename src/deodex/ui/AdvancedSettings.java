@@ -94,6 +94,7 @@ public class AdvancedSettings extends JPanel {
 		}
 
 	}
+
 	/**
 	 * 
 	 * @author lord-ralf-adolf
@@ -127,7 +128,7 @@ public class AdvancedSettings extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public static final String[] COMPRESSION_METHODS = { R.getString("0000058"), R.getString("0000059"),
-	R.getString("0000060") };
+			R.getString("0000060") };
 	JTabbedPane p = new JTabbedPane();
 	// Strings
 	String tabbedTitleLang = R.getString("0000061");
@@ -157,8 +158,9 @@ public class AdvancedSettings extends JPanel {
 	public JLabel compresion = new JLabel(R.getString("0000067"));
 
 	public JCheckBox checkUpdateOnStartup = new JCheckBox(R.getString("0000097"));
+
 	/**
-	 * Constructor no arguments 
+	 * Constructor no arguments
 	 */
 	@SuppressWarnings("unchecked")
 	public AdvancedSettings() {
@@ -203,13 +205,11 @@ public class AdvancedSettings extends JPanel {
 		compMethodCombo.setSelectedItem(AdvancedSettings.COMPRESSION_METHODS[Cfg.getCompresionMathod()]);
 
 		// tool tips
-		this.fontsCombo.setToolTipText(
-				R.getString("0000068"));
-		this.langsCombo.setToolTipText(
-				R.getString("0000069"));
+		this.fontsCombo.setToolTipText(R.getString("0000068"));
+		this.langsCombo.setToolTipText(R.getString("0000069"));
 		this.HeapsizeCombo.setToolTipText(R.getString("0000070"));
 		this.compMethodCombo.setToolTipText(R.getString("0000071"));
-		
+
 		// cell rendrers
 		this.fontsCombo.setRenderer(new WhiteYellowCellRenderer());
 
@@ -219,14 +219,14 @@ public class AdvancedSettings extends JPanel {
 		this.HeapsizeCombo.addActionListener(new Listener());
 		this.threadCombo.addActionListener(new Listener());
 		compMethodCombo.addActionListener(new Listener());
-		checkUpdateOnStartup.addActionListener(new ActionListener(){
+		checkUpdateOnStartup.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				Cfg.setCheckForUpdate(checkUpdateOnStartup.isSelected() ? 1:0);
+				Cfg.setCheckForUpdate(checkUpdateOnStartup.isSelected() ? 1 : 0);
 			}
-			
+
 		});
 		// labels
 
@@ -239,7 +239,6 @@ public class AdvancedSettings extends JPanel {
 
 		checkUpdateOnStartup.setBounds(50, 140, 400, 40);
 
-		
 		this.threadLab.setBounds(20, 20, 350, 40);
 		this.threadCombo.setBounds(370, 20, 300, 40);
 
@@ -278,7 +277,7 @@ public class AdvancedSettings extends JPanel {
 		this.langPan.add(langsLab);
 		this.langPan.add(checkUpdateOnStartup);
 		checkUpdateOnStartup.setSelected(Cfg.doCheckForUpdate());
-		
+
 		// add comp to performance pan
 		this.performancePan.add(HeapsizeCombo);
 		this.performancePan.add(this.HeapsizeLab);

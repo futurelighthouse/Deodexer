@@ -50,7 +50,7 @@ public class CmdLogger implements LoggerPan {
 	@Override
 	public synchronized void saveToFile() {
 
-		String str = Logger.LOG_FILE.getParentFile().getAbsolutePath()+ "/Deodexing_log.txt";
+		String str = Logger.LOG_FILE.getParentFile().getAbsolutePath() + "/Deodexing_log.txt";
 		File logFile = new File(str);
 		this.addLog("Log file saved to " + logFile.getAbsolutePath());
 		PropReader.ArrayToProp(logs, logFile);

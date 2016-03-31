@@ -82,7 +82,7 @@ public class Logger {
 	 * @param str
 	 *            the log to be saved
 	 */
-	public static synchronized void appendLog(String str) {  
+	public static synchronized void appendLog(String str) {
 		getlogFileName();
 		long yourmilliseconds = System.currentTimeMillis();
 		SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm:ss]"); // dd/MMM/yyyy
@@ -104,14 +104,14 @@ public class Logger {
 		}
 
 	}
-	
+
 	/**
 	 * write the given String to a new line in the log file
 	 * 
 	 * @param str
 	 *            the log to be saved
 	 */
-	public static synchronized void writeSystemFolderFiles(String str) {  
+	public static synchronized void writeSystemFolderFiles(String str) {
 		getlogFileName();
 		long yourmilliseconds = System.currentTimeMillis();
 		SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm:ss]"); // dd/MMM/yyyy
@@ -120,7 +120,8 @@ public class Logger {
 			System.out.println(sdf.format(resultdate) + str);
 		BufferedWriter out;
 		try {
-			out = new BufferedWriter(new FileWriter(new File(LOG_FILE.getParentFile().getAbsolutePath()+"/system_files.txt"), true));
+			out = new BufferedWriter(
+					new FileWriter(new File(LOG_FILE.getParentFile().getAbsolutePath() + "/system_files.txt"), true));
 			out.write(sdf.format(resultdate) + str);
 			out.newLine();
 			out.flush();

@@ -62,8 +62,8 @@ public class ApkObj implements Serializable {
 		this.odexFile = odexFile;
 		if (odexFile.getName().endsWith(S.COMP_ODEX_EXT)) {
 			setPureName(odexFile.getName().substring(0, odexFile.getName().lastIndexOf(S.COMP_ODEX_EXT)));
-		} else if (odexFile.getName().endsWith(S.COMP_GZ_ODEX_EXT)){
-			setPureName(odexFile.getName().substring(0, odexFile.getName().lastIndexOf(S.COMP_GZ_ODEX_EXT)));	
+		} else if (odexFile.getName().endsWith(S.COMP_GZ_ODEX_EXT)) {
+			setPureName(odexFile.getName().substring(0, odexFile.getName().lastIndexOf(S.COMP_GZ_ODEX_EXT)));
 		} else {
 			setPureName(odexFile.getName().substring(0, odexFile.getName().lastIndexOf(S.ODEX_EXT)));
 		}
@@ -80,7 +80,9 @@ public class ApkObj implements Serializable {
 	}
 
 	/**
-	 * move origApk to tempApk and origOdex to tempOdex (note : move and not copy no IO involved) 
+	 * move origApk to tempApk and origOdex to tempOdex (note : move and not
+	 * copy no IO involved)
+	 * 
 	 * @param tmpFolder
 	 * @return true only if the copy succes
 	 */
@@ -108,7 +110,8 @@ public class ApkObj implements Serializable {
 				+ tempApk.getAbsolutePath());
 		// FilesUtils.copyFile(this.origApk, tempApk); lets use rename instead
 		this.origApk.renameTo(tempApk);
-		Logger.appendLog("[ApkObj]" + "copying " + odexFile.getAbsolutePath() + " to " + tempCompOdex.getAbsolutePath());
+		Logger.appendLog(
+				"[ApkObj]" + "copying " + odexFile.getAbsolutePath() + " to " + tempCompOdex.getAbsolutePath());
 		// FilesUtils.copyFile(odexFile, tempCompOdex);
 		odexFile.renameTo(tempCompOdex);
 		return tempApk.exists() && tempCompOdex.exists();

@@ -82,6 +82,7 @@ public class R {
 			return R.COURIER_NORMAL;
 		return couriernormal;
 	}
+
 	/**
 	 * @return the normalFont
 	 */
@@ -90,6 +91,7 @@ public class R {
 			return R.NORMAL_FONT;
 		return normalFont;
 	}
+
 	/**
 	 * @return the smallFont
 	 */
@@ -112,6 +114,7 @@ public class R {
 		}
 		return legalize(value);
 	}
+
 	/**
 	 * @return the titleFont
 	 */
@@ -162,8 +165,8 @@ public class R {
 			if (spec.equals("<>")) {
 				tmp = tmp + '\n';
 				i++;
-			}else if (spec.equals(">>")){
-				tmp = tmp +"=";
+			} else if (spec.equals(">>")) {
+				tmp = tmp + "=";
 				i++;
 			} else {
 				tmp = tmp + str.charAt(i);

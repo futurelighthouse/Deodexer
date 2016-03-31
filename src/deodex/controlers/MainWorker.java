@@ -109,7 +109,8 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 
 		if (workingThreadCount == 0) {
 			logPan.saveToFile();
-			// don't delete if there us a fail the user needs boot.oat to deodex manually
+			// don't delete if there us a fail the user needs boot.oat to deodex
+			// manually
 			if (FailTracker.failCount == 0) {
 				FilesUtils.deleteFiles(FilesUtils.searchrecursively(
 						new File(folder.getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK),
@@ -119,9 +120,9 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 						S.SYSTEM_FRAMEWORK_BOOT_ART));
 
 			}
-			// lets make sure there is no leftover empty dir 
+			// lets make sure there is no leftover empty dir
 			// not that they will cause any effect later on phone
-			// just to make it clean 
+			// just to make it clean
 			FilesUtils.deleteUmptyFoldersInFolder(folder);
 
 			FilesUtils.deleteRecursively(S.getBootTmp().getParentFile().getParentFile());
@@ -147,7 +148,7 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 		File plugin = new File(this.folder.getAbsolutePath() + File.separator + "plugin");
 		File vendor = new File(this.folder.getAbsolutePath() + "/" + "vendor");
 		File dataApp = new File(this.folder.getAbsolutePath() + "/" + "data-app");
-		File[] folders = { app, privApp, plugin, vendor ,dataApp};
+		File[] folders = { app, privApp, plugin, vendor, dataApp };
 		ArrayList<File> odexFiles = new ArrayList<File>();
 
 		for (File dir : folders) {
@@ -229,7 +230,7 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 		for (String ext : exts) {
 			this.worker3List.addAll(FilesUtils.searchrecursively(framework, ext));
 		}
-		
+
 		this.worker3List = ArrayUtils.deletedupricates(this.worker3List);
 		// some roms have apks under framwork like LG roms
 		ArrayList<File> temapkinfram = new ArrayList<File>();
@@ -295,10 +296,10 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 		tasks.add(apk2);
 		tasks.add(jar);
 		tasks.add(boot);
-		// FIXME : this should not be initialized on command line worker 
-		// because it's useless ! don't just add a condition here otherwise 
+		// FIXME : this should not be initialized on command line worker
+		// because it's useless ! don't just add a condition here otherwise
 		// all set and get progress will throw nullpointer exception
-		// do this on a clear head 
+		// do this on a clear head
 		this.initPannel();
 	}
 

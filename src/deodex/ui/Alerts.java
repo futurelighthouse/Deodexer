@@ -38,7 +38,7 @@ import deodex.ui.about.CheckUpdatePan;
 public class Alerts {
 	static JDialog updateDialog = new JDialog();
 	static CheckUpdatePan updatePan = new CheckUpdatePan(updateDialog);
-	
+
 	public static void showClosingdialog(Component c) {
 		JOptionPane.showMessageDialog(c, R.getString("0000073"));
 		FilesUtils.deleteRecursively(new File(PathUtils.getExcutionPath() + File.separator + "updates"));
@@ -158,22 +158,22 @@ public class Alerts {
 	 */
 	public static boolean showAboutDialog(JFrame jFrame) {
 		int i = 1;
-			JPanel pan = new JPanel();
-			pan.setSize(820,800);
-			pan.setLayout(null);
-			AboutTabbedPan alertPane = new AboutTabbedPan();
-			pan.add(alertPane);
-		
-			JOptionPane pane = new JOptionPane(pan,JOptionPane.PLAIN_MESSAGE);
-			JDialog dialog = pane.createDialog(jFrame, R.getString("0000123"));
-			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			dialog.setSize(820, 800);
-			dialog.setLocationRelativeTo(jFrame);
-			dialog.setVisible(true);
+		JPanel pan = new JPanel();
+		pan.setSize(820, 800);
+		pan.setLayout(null);
+		AboutTabbedPan alertPane = new AboutTabbedPan();
+		pan.add(alertPane);
+
+		JOptionPane pane = new JOptionPane(pan, JOptionPane.PLAIN_MESSAGE);
+		JDialog dialog = pane.createDialog(jFrame, R.getString("0000123"));
+		dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		dialog.setSize(820, 800);
+		dialog.setLocationRelativeTo(jFrame);
+		dialog.setVisible(true);
 
 		return i == 0;
 	}
-	
+
 	/**
 	 * 
 	 * @param comp

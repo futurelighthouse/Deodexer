@@ -18,10 +18,8 @@
  */
 package deodex.tools;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import deodex.Cfg;
@@ -37,9 +35,9 @@ public class AdbUtils {
 	public static final String NULL_DEVICE = "null|null";
 
 	/**
-	 * extract /system from device to the given location
-	 * the method uses adb host native binary to extract 
-	 * we test fail from the exit code of adb 
+	 * extract /system from device to the given location the method uses adb
+	 * host native binary to extract we test fail from the exit code of adb
+	 * 
 	 * @param outputFolder
 	 *            the folder in which the extracted files will be stored (needs
 	 *            to be a directory) the directory will be created make sure you
@@ -52,25 +50,25 @@ public class AdbUtils {
 	public static boolean extractSystem(File outputFolder, LoggerPan logger) {
 		AdbUtils.killServer();
 		AdbUtils.startServer();
-		String[] remoteFiles = {"/app","/priv-app","/framework","/build.prop","/vendor"
-								,"/odex.app.sqsh","/odex.priv-app.sqsh","/odex.framework.sqsh",
-								"/vendor","/plugin","/data-app"};
+		String[] remoteFiles = { "/app", "/priv-app", "/framework", "/build.prop", "/vendor", "/odex.app.sqsh",
+				"/odex.priv-app.sqsh", "/odex.framework.sqsh", "/vendor", "/plugin", "/data-app" };
 		int[] exitStatus = new int[remoteFiles.length];
 		Runtime rt = Runtime.getRuntime();
-		for (int i = 0 ; i < remoteFiles.length ; i++){
+		for (int i = 0; i < remoteFiles.length; i++) {
 			String remoteFile = remoteFiles[i];
-			String[] cmd = {S.getAdbBin(), "pull", "/system"+remoteFile, new File(outputFolder.getAbsolutePath()+remoteFile).getAbsolutePath()};
+			String[] cmd = { S.getAdbBin(), "pull", "/system" + remoteFile,
+					new File(outputFolder.getAbsolutePath() + remoteFile).getAbsolutePath() };
 			exitStatus[i] = -999;
 			try {
 				Process p = rt.exec(cmd);
-				AdbStreamReader stdReader = new AdbStreamReader(p.getInputStream(), logger ,R.getString(S.LOG_INFO));
-				AdbStreamReader errReader = new AdbStreamReader(p.getErrorStream(),logger , R.getString(S.LOG_INFO));
+				AdbStreamReader stdReader = new AdbStreamReader(p.getInputStream(), logger, R.getString(S.LOG_INFO));
+				AdbStreamReader errReader = new AdbStreamReader(p.getErrorStream(), logger, R.getString(S.LOG_INFO));
 				stdReader.start();
 				errReader.start();
 				exitStatus[i] = p.waitFor();
-				} catch (Exception e){
-					e.printStackTrace();
-				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		boolean success = exitStatus[2] == 0 && exitStatus[3] == 0;
 		return success;
@@ -121,14 +119,13 @@ public class AdbUtils {
 
 		String[] cmd = { S.getAdbBin(), "devices" };
 
-
 		try {
-			ProcessHandler ph = new ProcessHandler(cmd , null);
+			ProcessHandler ph = new ProcessHandler(cmd, null);
 			int exitValue = ph.excute();
 			// read the output from the command
 			ArrayList<String> output = ph.getGlobalProcessOutput();
 			System.out.println("we are here ..");
-			for (String s : output){
+			for (String s : output) {
 				System.out.println(s);
 			}
 			if (exitValue != 0) {

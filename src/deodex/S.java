@@ -28,13 +28,13 @@ import deodex.tools.PathUtils;
 
 public class S {
 	/**
-	 * the safe heap size allocated to use if it is more than this
-	 * we will use oat2dex as library rather than a binary if it is 
-	 * less than this we will call oat2dex as binary with specific 
-	 * heap size set by the user him self this is the only way to 
-	 * avoid OutofMemory exception because I can't determine the host 
-	 * available ram memory and I can't change heap size after Launch 
-	 * and not all users know the -Xmx JVM arg so lets do it for them 
+	 * the safe heap size allocated to use if it is more than this we will use
+	 * oat2dex as library rather than a binary if it is less than this we will
+	 * call oat2dex as binary with specific heap size set by the user him self
+	 * this is the only way to avoid OutofMemory exception because I can't
+	 * determine the host available ram memory and I can't change heap size
+	 * after Launch and not all users know the -Xmx JVM arg so lets do it for
+	 * them
 	 * 
 	 */
 	public static final long SAFE_HEAP_SIZE = 754974720L;
@@ -48,7 +48,7 @@ public class S {
 	public static final String APK_EXT = ".apk";
 	public static final String ODEX_EXT = ".odex";
 	public static final String COMP_ODEX_EXT = ".odex.xz";
-	public static final String COMP_GZ_ODEX_EXT = ".odex.gz";	
+	public static final String COMP_GZ_ODEX_EXT = ".odex.gz";
 	public static final String SYSTEM_APP = "app";
 	public static final String SYSTEM_PRIV_APP = "priv-app";
 	public static final String SYSTEM_BUILD_PROP = "build.prop";
@@ -92,7 +92,6 @@ public class S {
 	public static final String FRENCH = "Français";
 	public static final String ARABIC = "العربية";
 
-	
 	public static final String CFG_CUR_LANG = "cfg.current.language";
 	public static final String CFG_HOST_OS = "cfg.host.os";
 

@@ -27,23 +27,25 @@ import java.util.TreeSet;
 public class ArrayUtils {
 
 	/**
-	 * remove all duplicate file names from the list with 
-	 * full path doesn't matter only the name matters
-	 * @param filesList a list of files
+	 * remove all duplicate file names from the list with full path doesn't
+	 * matter only the name matters
+	 * 
+	 * @param filesList
+	 *            a list of files
 	 * @return filesListWithNoFileNaleDuplicates
 	 */
 	public static ArrayList<File> deletedupricates(ArrayList<File> filesList) {
-	    Set<File> s = new TreeSet<File>(new Comparator<File>() {
+		Set<File> s = new TreeSet<File>(new Comparator<File>() {
 
-	        @Override
-	        public int compare(File o1, File o2) {
-	        		return o1.getName().compareTo(o2.getName()); 
-	        }
-	    });
-	    s.addAll(filesList);
+			@Override
+			public int compare(File o1, File o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		s.addAll(filesList);
 
-	    filesList = new ArrayList<File> (s);
-	    return filesList;
+		filesList = new ArrayList<File>(s);
+		return filesList;
 	}
 
 }

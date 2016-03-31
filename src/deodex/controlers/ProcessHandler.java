@@ -24,23 +24,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import deodex.tools.CmdLogger;
-
 public class ProcessHandler {
 	private final String[] cmd;
 	private static final Runtime rt = Runtime.getRuntime();
-	
+
 	private int exitValue = -999;
 	private ArrayList<String> sdtInput = new ArrayList<String>();
 	private ArrayList<String> errInput = new ArrayList<String>();
 	private ArrayList<String> globalIn = new ArrayList<String>();
+
 	/**
 	 * @return the exitValue
 	 */
 	public int getProcessExitValue() {
 		return exitValue;
 	}
-
 
 	/**
 	 * @return the sdtInput
@@ -49,16 +47,15 @@ public class ProcessHandler {
 		return sdtInput;
 	}
 
-
 	/**
-	 * returns an array list with all the lines of the 
-	 * output of the command (Error input)
+	 * returns an array list with all the lines of the output of the command
+	 * (Error input)
+	 * 
 	 * @return the errInput
 	 */
 	public ArrayList<String> getProcessErrOutput() {
 		return errInput;
 	}
-
 
 	/**
 	 * @return the globalIn
@@ -68,52 +65,54 @@ public class ProcessHandler {
 	}
 
 	@SuppressWarnings("rawtypes")
-	private ArrayList[] inputsLists = {sdtInput,errInput};
-	
+	private ArrayList[] inputsLists = { sdtInput, errInput };
+
 	/**
 	 * 
 	 * @param cmd
-	 * @param logger
 	 */
-	public ProcessHandler(String[] cmd ) {
+	public ProcessHandler(String[] cmd) {
 		this.cmd = cmd;
 	}
-	
+
 	/**
 	 * 
-	 * @return the process exit value 
-	 * @throws IOException 
+	 * @return the process exit value
+	 * @throws IOException
 	 * @throws InterruptedException
 	 */
 	public int excute() throws IOException, InterruptedException {
 
-			Process p = rt.exec(cmd);
-			new StreamToArray(p.getInputStream(),0).start();
-			new StreamToArray(p.getErrorStream(),1).start();
-		
-			exitValue = p.waitFor();
+		Process p = rt.exec(cmd);
+		new StreamToArray(p.getInputStream(), 0).start();
+		new StreamToArray(p.getErrorStream(), 1).start();
+
+		exitValue = p.waitFor();
 		return exitValue;
 	}
 
 	/**
-	 * @return cmd : the command 
+	 * @return cmd : the command
 	 */
 	public String[] getCommand() {
 		return cmd;
 	}
 
-	private synchronized void addGlobaleInput(String str ){
-		synchronized(globalIn){
+	private synchronized void addGlobaleInput(String str) {
+		synchronized (globalIn) {
 			globalIn.add(str);
 		}
 	}
+
 	class StreamToArray implements Runnable {
-		int type ;
-		InputStream in ;
-		public StreamToArray(InputStream in ,int type){
+		int type;
+		InputStream in;
+
+		public StreamToArray(InputStream in, int type) {
 			this.type = type;
 			this.in = in;
 		}
+
 		@SuppressWarnings("unchecked")
 		@Override
 		public void run() {
@@ -125,13 +124,13 @@ public class ProcessHandler {
 					inputsLists[type].add(s);
 					addGlobaleInput(s);
 				}
-				//in.close();
+				in.close();
 			} catch (Exception ex) {
 				// TODO : do something on fail
 			}
 		}
-		
-		public void start(){
+
+		public void start() {
 			new Thread(this).start();
 		}
 

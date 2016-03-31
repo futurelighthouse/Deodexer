@@ -91,13 +91,13 @@ public class UnsquashUtils {
 					File[] apkfolders = appFolder.listFiles();
 					for (File f : files) {
 						if (f.getName().contains(".odex")) {
-							ArrayList<File> matchingOdexs = FilesUtils.searchExactFileNames(
-									appFolder, f.getName());
+							ArrayList<File> matchingOdexs = FilesUtils.searchExactFileNames(appFolder, f.getName());
 							if (matchingOdexs == null || matchingOdexs.size() <= 0) {
 								for (File dir : apkfolders) {
 									if (dir.getName()
 											.equals(f.getName().subSequence(0, f.getName().lastIndexOf(".")))) {
-										copied = copied && FilesUtils.copyFile(f, new File(dir.getAbsolutePath() + "/" + f.getName()));
+										copied = copied && FilesUtils.copyFile(f,
+												new File(dir.getAbsolutePath() + "/" + f.getName()));
 									}
 								}
 							} else {
@@ -107,7 +107,7 @@ public class UnsquashUtils {
 							}
 						}
 					}
-					if(!copied)
+					if (!copied)
 						return false;
 				}
 			} else {
@@ -130,13 +130,13 @@ public class UnsquashUtils {
 					File[] apkfolders = privApp.listFiles();
 					for (File f : files) {
 						if (f.getName().contains(".odex")) {
-							ArrayList<File> matchingOdexs = FilesUtils.searchExactFileNames(
-									privApp, f.getName());
+							ArrayList<File> matchingOdexs = FilesUtils.searchExactFileNames(privApp, f.getName());
 							if (matchingOdexs == null || matchingOdexs.size() <= 0) {
 								for (File dir : apkfolders) {
 									if (dir.getName()
 											.equals(f.getName().subSequence(0, f.getName().lastIndexOf(".")))) {
-										copied = copied && FilesUtils.copyFile(f, new File(dir.getAbsolutePath() + "/" + f.getName()));
+										copied = copied && FilesUtils.copyFile(f,
+												new File(dir.getAbsolutePath() + "/" + f.getName()));
 									}
 								}
 							} else {
@@ -146,7 +146,7 @@ public class UnsquashUtils {
 							}
 						}
 					}
-					if(!copied)
+					if (!copied)
 						return false;
 				}
 			} else {
@@ -164,17 +164,19 @@ public class UnsquashUtils {
 					return false;
 				} else {
 					boolean copied = true;
-					File frameworkFolder = new File(systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK);
+					File frameworkFolder = new File(
+							systemFolder.getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK);
 					File[] apkfolders = frameworkFolder.listFiles();
 					for (File f : files) {
 						if (f.getName().contains(".odex")) {
-							ArrayList<File> matchingOdexs = FilesUtils.searchExactFileNames(
-									frameworkFolder, f.getName());
+							ArrayList<File> matchingOdexs = FilesUtils.searchExactFileNames(frameworkFolder,
+									f.getName());
 							if (matchingOdexs == null || matchingOdexs.size() <= 0) {
 								for (File dir : apkfolders) {
 									if (dir.getName()
 											.equals(f.getName().subSequence(0, f.getName().lastIndexOf(".")))) {
-										copied = copied && FilesUtils.copyFile(f, new File(dir.getAbsolutePath() + "/" + f.getName()));
+										copied = copied && FilesUtils.copyFile(f,
+												new File(dir.getAbsolutePath() + "/" + f.getName()));
 									}
 								}
 							} else {
@@ -184,7 +186,7 @@ public class UnsquashUtils {
 							}
 						}
 					}
-					if(!copied)
+					if (!copied)
 						return false;
 				}
 			} else {

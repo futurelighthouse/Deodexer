@@ -32,9 +32,9 @@ public class Main {
 
 		if (args != null && args.length != 0 && args[0].equals("BZW")) {
 			new ZipalignWindow(null);
-		} else if (args != null && args.length != 0 && args[0].equals("CFZ") ){
+		} else if (args != null && args.length != 0 && args[0].equals("CFZ")) {
 			new CreateFlashableZip();
-		}else {
+		} else {
 			System.out.println("You are not supposed to run this jar file !");
 		}
 	}

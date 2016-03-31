@@ -50,7 +50,6 @@ public class CreateFlashableZip extends WebFrame {
 	LoggerPane logger = new LoggerPane("");
 	JPanel mainPan = new JPanel();
 
-	
 	public CreateFlashableZip() {
 		this.setTitle("Zip creater");
 		this.setResizable(false);
@@ -73,8 +72,8 @@ public class CreateFlashableZip extends WebFrame {
 		mainPan.add(logger);
 		// defaults
 		createZip.setEnabled(false);
-		// actions 
-		browseBtn.addActionListener(new ActionListener(){
+		// actions
+		browseBtn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,22 +81,22 @@ public class CreateFlashableZip extends WebFrame {
 				fc.setDialogTitle("Sellect a Rom system folder");
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				fc.showOpenDialog(getThis());
-				if(fc.getSelectedFile() != null){
-					if(valid(fc.getSelectedFile())){
-						logger.addLog(R.getString(S.LOG_INFO)+R.getString("0000148"));
+				if (fc.getSelectedFile() != null) {
+					if (valid(fc.getSelectedFile())) {
+						logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000148"));
 						createZip.setEnabled(true);
 						browseField.setText(fc.getSelectedFile().getAbsolutePath());
 					}
 				} else {
 					createZip.setEnabled(false);
-					logger.addLog(R.getString(S.LOG_INFO)+R.getString("0000149"));
+					logger.addLog(R.getString(S.LOG_INFO) + R.getString("0000149"));
 				}
-				
+
 			}
-			
+
 		});
-		
-		createZip.addActionListener(new ActionListener(){
+
+		createZip.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -107,7 +106,7 @@ public class CreateFlashableZip extends WebFrame {
 								+ "\n" + R.getString("0000015") + "\n" + R.getString("0000016") + "\n\n"
 								+ R.getString("0000017"),
 						R.getString("0000018"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if (agree == 0 ) {
+				if (agree == 0) {
 					String name = JOptionPane.showInputDialog(getThis(),
 							R.getString("0000006") + "\n" + R.getString("0000007"));
 					if (name != null) {
@@ -135,32 +134,34 @@ public class CreateFlashableZip extends WebFrame {
 					}
 				}
 			}
-			
+
 		});
 		this.setVisible(true);
-		
+
 	}
-	
-	private boolean valid (File folder){
-		File buildProp = new File(folder+"/build.prop");
-		if(!buildProp.exists()){
+
+	private boolean valid(File folder) {
+		File buildProp = new File(folder + "/build.prop");
+		if (!buildProp.exists()) {
 			logger.addLog(R.getString(S.LOG_ERROR));
 			return false;
 		}
 		int apkCount = FilesUtils.searchrecursively(folder, ".apk").size();
 		int jarCount = FilesUtils.searchrecursively(folder, ".jar").size();
-		if(apkCount <= 0 || jarCount <= 0){
-			logger.addLog(R.getString(S.LOG_ERROR)+R.getString("0000145"));
+		if (apkCount <= 0 || jarCount <= 0) {
+			logger.addLog(R.getString(S.LOG_ERROR) + R.getString("0000145"));
 			return false;
 		}
 		int odexCount = FilesUtils.getOdexCount(folder);
-		if(odexCount > 0 ){
-			logger.addLog(R.getString(S.LOG_WARNING)+"["+R.getString("log.there.is")+" "+odexCount+R.getString("0000146"));
-			logger.addLog(R.getString(S.LOG_WARNING)+R.getString("0000147"));
+		if (odexCount > 0) {
+			logger.addLog(R.getString(S.LOG_WARNING) + "[" + R.getString("log.there.is") + " " + odexCount
+					+ R.getString("0000146"));
+			logger.addLog(R.getString(S.LOG_WARNING) + R.getString("0000147"));
 		}
 		return true;
 	}
-	private WebFrame getThis(){
+
+	private WebFrame getThis() {
 		return this;
 	}
 }

@@ -70,10 +70,10 @@ public class CommandLineWorker implements ThreadWatcher {
 			createFlashableZip();
 		}
 		System.out.println("ALL Threads Terminated !");
-		if(FailTracker.failCount > 0){
+		if (FailTracker.failCount > 0) {
 			System.out.println("List of files fail to deodex :");
-		for (String str : FailTracker.failedFiles)
-			System.out.println(str);
+			for (String str : FailTracker.failedFiles)
+				System.out.println(str);
 		} else {
 			System.out.println("All apks and jars were deodexed !");
 		}
@@ -85,11 +85,9 @@ public class CommandLineWorker implements ThreadWatcher {
 	 */
 	private void initFilesList() { // FIXME: Duplicated in FlachableZipCreater
 									// the GUI version move it somewhere else
-		fileToAdd.addAll(FilesUtils
-				.searchrecursively(systemFolder, ".apk"));
+		fileToAdd.addAll(FilesUtils.searchrecursively(systemFolder, ".apk"));
 
-		fileToAdd.addAll(FilesUtils.searchrecursively(
-				systemFolder, ".jar"));
+		fileToAdd.addAll(FilesUtils.searchrecursively(systemFolder, ".jar"));
 
 	}
 

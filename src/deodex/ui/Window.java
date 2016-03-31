@@ -165,7 +165,7 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 				Alerts.showAdvancedSettingsDialog(getThisFram());
 			} else if (source.equals(checkUpdateMenu)) {
 				Alerts.showUpdateAlertDialog(getThisFram());
-			} else if (source.equals(createZipMenuItem)){
+			} else if (source.equals(createZipMenuItem)) {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -271,7 +271,7 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 
 		initMenuBar();
 		initBrowseView();
-		if(Cfg.doCheckForUpdate()){
+		if (Cfg.doCheckForUpdate()) {
 			CheckUpdatePan.CheckForUpdate(logger);
 		}
 	}
@@ -353,7 +353,7 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 				@Override
 				public void run() {
 
-					mainWorker = new MainWorker(SessionCfg.getSystemFolder(), logger, maxJobs,getThisWatcher());
+					mainWorker = new MainWorker(SessionCfg.getSystemFolder(), logger, maxJobs, getThisWatcher());
 					Thread t = new Thread(mainWorker);
 					t.start();
 				}
@@ -509,8 +509,7 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 		rootPanel.setBackground(R.PANELS_BACK_COLOR);
 		rootPanel.setOpaque(true);
 		// TODO : externalize those
-		JLabel errorLab = new JLabel(R.getString("0000136")
-				+ R.getString("0000137")+R.getString("0000138"));
+		JLabel errorLab = new JLabel(R.getString("0000136") + R.getString("0000137") + R.getString("0000138"));
 		MyWebButton exit = new MyWebButton(R.getString("window.restartbtn"));
 		exit.addActionListener(new ActionListener() {
 
@@ -628,25 +627,22 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 
 				int fail = 0;
 				int agree = 1;
-				if(FailTracker.failCount > 0){
+				if (FailTracker.failCount > 0) {
 					String failedApks = "";
-					for (String str : FailTracker.failedFiles){
-						failedApks = failedApks +"<p>"+str+"</p>";
+					for (String str : FailTracker.failedFiles) {
+						failedApks = failedApks + "<p>" + str + "</p>";
 					}
 					fail = JOptionPane.showConfirmDialog(zipIt,
-							R.getString("0000142")+
-									failedApks+
-							R.getString("0000143")+
-									R.getString("0000144"),
+							R.getString("0000142") + failedApks + R.getString("0000143") + R.getString("0000144"),
 							R.getString("0000018"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				}
-				if(fail == 0)
-				agree = JOptionPane.showConfirmDialog(zipIt,
-						R.getString("0000009") + "\n" + R.getString("0000010") + "\n" + R.getString("0000011") + "\n"
-								+ R.getString("0000012") + "\n" + R.getString("0000013") + "\n" + R.getString("0000014")
-								+ "\n" + R.getString("0000015") + "\n" + R.getString("0000016") + "\n\n"
-								+ R.getString("0000017"),
-						R.getString("0000018"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (fail == 0)
+					agree = JOptionPane.showConfirmDialog(zipIt,
+							R.getString("0000009") + "\n" + R.getString("0000010") + "\n" + R.getString("0000011")
+									+ "\n" + R.getString("0000012") + "\n" + R.getString("0000013") + "\n"
+									+ R.getString("0000014") + "\n" + R.getString("0000015") + "\n"
+									+ R.getString("0000016") + "\n\n" + R.getString("0000017"),
+							R.getString("0000018"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (agree == 0 && fail == 0) {
 					String name = JOptionPane.showInputDialog(zipIt,
 							R.getString("0000006") + "\n" + R.getString("0000007"));
@@ -677,7 +673,7 @@ public class Window extends JFrame implements ThreadWatcher, ChangeListener {
 			}
 
 		});
-		
+
 		rootPanel.add(logger);
 		rootPanel.add(mainWorker.mainPannel);
 		rootPanel.add(quitbtn);

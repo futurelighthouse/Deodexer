@@ -154,8 +154,10 @@ public class CheckUpdatePan extends JPanel implements ActionListener {
 			try {
 				URL link = new URL("http://www.lordroid.tk/lordroid/release.php");
 				link.openConnection();
-				FilesUtils.copyFile(link.openStream(), new File(PathUtils.getExcutionPath() + File.separator + "/updates/link"));
-				downloadLink = new URL(PropReader.getProp("link", new File(PathUtils.getExcutionPath() + File.separator + "/updates/link")));
+				FilesUtils.copyFile(link.openStream(),
+						new File(PathUtils.getExcutionPath() + File.separator + "/updates/link"));
+				downloadLink = new URL(PropReader.getProp("link",
+						new File(PathUtils.getExcutionPath() + File.separator + "/updates/link")));
 				URLConnection connection = downloadLink.openConnection();
 				progress.setMinimum(0);
 				long lengh = connection.getContentLengthLong();
@@ -342,7 +344,7 @@ public class CheckUpdatePan extends JPanel implements ActionListener {
 					getThis().checkForUpdate.setEnabled(false);
 					getThis().downloadNewVersion.setEnabled(true);
 					getThis().openDownloadpage.setEnabled(true);
-					// 
+					//
 					getThis().downloadLink = new URL(PropReader.getProp("download.link", remoteVersionFile));
 					getThis().downloadPage = new URL(PropReader.getProp("download.page", remoteVersionFile));
 				} else {

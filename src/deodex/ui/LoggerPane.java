@@ -67,6 +67,7 @@ public class LoggerPane extends JPanel implements LoggerPan {
 			return c;
 		}
 	}
+
 	/**
 	 * 
 	 */
@@ -161,7 +162,7 @@ public class LoggerPane extends JPanel implements LoggerPan {
 
 	@Override
 	public synchronized void saveToFile() {
-		String str = Logger.LOG_FILE.getParentFile().getAbsolutePath()+ "/Deodexing_log.txt";
+		String str = Logger.LOG_FILE.getParentFile().getAbsolutePath() + "/Deodexing_log.txt";
 
 		File logFile = new File(str);
 

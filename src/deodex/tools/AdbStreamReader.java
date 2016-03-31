@@ -24,19 +24,23 @@ import java.io.InputStreamReader;
 
 import deodex.controlers.LoggerPan;
 
-public class AdbStreamReader implements Runnable{
+public class AdbStreamReader implements Runnable {
 
 	final InputStream is;
 	final LoggerPan logger;
 	final String streamType;
 
 	/**
-	 * this class is here to empty the Process InputStream 
-	 * in a separate thread this way you can make sure you can read
-	 * both std and err inputStream from process at the same time 
-	 * @param is the input stream to read
-	 * @param logger the logger null safe 
-	 * @param streamType the stream name type like error or std null safe
+	 * this class is here to empty the Process InputStream in a separate thread
+	 * this way you can make sure you can read both std and err inputStream from
+	 * process at the same time
+	 * 
+	 * @param is
+	 *            the input stream to read
+	 * @param logger
+	 *            the logger null safe
+	 * @param streamType
+	 *            the stream name type like error or std null safe
 	 */
 	public AdbStreamReader(InputStream is, LoggerPan logger, String streamType) {
 		this.is = is;
@@ -47,10 +51,10 @@ public class AdbStreamReader implements Runnable{
 	/**
 	 * start a thread with this Runnable
 	 */
-	public void start(){
+	public void start() {
 		new Thread(this).start();
 	}
-	
+
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -59,8 +63,8 @@ public class AdbStreamReader implements Runnable{
 			BufferedReader br = new BufferedReader(isr);
 			String s;
 			while ((s = br.readLine()) != null) {
-				if(logger != null)
-				logger.addLog((this.streamType != null ? this.streamType : "")+s);
+				if (logger != null)
+					logger.addLog((this.streamType != null ? this.streamType : "") + s);
 			}
 			is.close();
 		} catch (Exception ex) {
