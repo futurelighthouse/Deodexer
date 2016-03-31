@@ -120,7 +120,7 @@ public class AdbUtils {
 		String[] cmd = { S.getAdbBin(), "devices" };
 
 		try {
-			ProcessHandler ph = new ProcessHandler(cmd, null);
+			ProcessHandler ph = new ProcessHandler(cmd);
 			int exitValue = ph.excute();
 			// read the output from the command
 			ArrayList<String> output = ph.getGlobalProcessOutput();
