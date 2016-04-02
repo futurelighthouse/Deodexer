@@ -38,12 +38,12 @@ import deodex.tools.StringUtils;
 
 public class R {
 	private static final Font TITLE_FONT = new Font("Arial", Font.BOLD, 40);
-	public static final Font SMALL_TITLE_FONT = new Font("Arial", Font.BOLD, 18);
-	private static final Font NORMAL_FONT = new Font("Arial", Font.BOLD, 16);
-	private static final Font SMALL_FONT = new Font("Arial", Font.BOLD, 12);
+	public static final Font SMALL_TITLE_FONT = new Font("Arial", Font.PLAIN, 18);
+	private static final Font NORMAL_FONT = new Font("Arial", Font.PLAIN, 16);
+	private static final Font SMALL_FONT = new Font("Arial", Font.PLAIN, 12);
 
-	private static final Font COURIER_NORMAL = new Font("Arial", Font.BOLD, 18);
-	private static final Font COURIER_LOGGER = new Font("Arial", Font.BOLD, 16);
+	private static final Font COURIER_NORMAL = new Font("Arial", Font.PLAIN, 18);
+	private static final Font COURIER_LOGGER = new Font("Arial", Font.PLAIN, 16);
 
 	private static Font titleFont;
 	private static Font normalFont;
@@ -178,10 +178,10 @@ public class R {
 
 	public static void setFont(String fontName) {
 		titleFont = new Font(fontName, Font.BOLD, 40);
-		normalFont = new Font(fontName, Font.BOLD, 16);
-		smallFont = new Font(fontName, Font.BOLD, 12);
-		couriernormal = new Font(fontName, Font.BOLD, 18);
-		courierLogger = new Font(fontName, Font.BOLD, 16);
+		normalFont = new Font(fontName, Font.PLAIN, 15);
+		smallFont = new Font(fontName, Font.PLAIN, 11);
+		couriernormal = new Font(fontName, Font.PLAIN, 16);
+		courierLogger = new Font(fontName, Font.PLAIN, 15);
 	}
 
 }

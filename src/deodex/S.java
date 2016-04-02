@@ -44,6 +44,7 @@ public class S {
 	public static final int SEVENZIP_METHOD = 2;
 	public static final int J4ZIP_METHOD = 1;
 	public static final int AAPT_METHOD = 0;
+	public static final File OAT2DEX_FAILSAFE_PATH = new File(PathUtils.getExcutionPath()+"/bins/oat2dex/failSafe");
 
 	public static final String APK_EXT = ".apk";
 	public static final String ODEX_EXT = ".odex";

@@ -19,9 +19,9 @@
 package deodex.tools;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import deodex.Cfg;
-import deodex.HostInfo;
 import deodex.S;
 import deodex.SessionCfg;
 
@@ -45,7 +45,19 @@ public class Deodexer {
 		String cmd[] = { "java", Cfg.getMaxHeadSizeArg(), "-jar", S.getAot2Dex(), odexFile.getAbsolutePath(),
 				S.getBootTmpDex().getAbsolutePath() };
 		CmdUtils.runCommand(cmd);
-
+		if (dexFile.exists()){
+			return true;
+		}
+		ArrayList<File> failSafeOat2dex = ArrayUtils.deletedupricates(FilesUtils.searchrecursively(S.OAT2DEX_FAILSAFE_PATH, ".jar"));
+		for (File f : failSafeOat2dex){
+			System.out.println(f);
+			String cmd1[] = {"java",Cfg.getMaxHeadSizeArg(),"-jar",f.getAbsolutePath(),odexFile.getAbsolutePath(),S.getBootTmpDex().getAbsolutePath()};
+			CmdUtils.runCommand(cmd1);
+			if(dexFile.exists()){
+				return true;
+			}
+		}
+		
 		return dexFile.exists();
 	}
 

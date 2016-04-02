@@ -16,22 +16,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package deodex;
+package deodex.ui.advancedSettings;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+// TODO offer more options for oat2dex 
+public class CustomizeOat2DexPan {
 
-import deodex.tools.ArrayUtils;
-import deodex.tools.FilesUtils;
-
-public class Test {
-
-	public static void main(String[] args) throws IOException {
-		// just for testing purpose
-		ArrayList<File> failSafeOat2dex = ArrayUtils.deletedupricates(FilesUtils.searchrecursively(S.OAT2DEX_FAILSAFE_PATH, ".jar"));
-		for (File f : failSafeOat2dex){
-			System.out.println(f);
-		}
-	}
 }

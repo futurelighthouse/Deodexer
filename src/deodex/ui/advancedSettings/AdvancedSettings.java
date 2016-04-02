@@ -18,7 +18,6 @@
  */
 package deodex.ui.advancedSettings;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
