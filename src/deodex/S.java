@@ -154,6 +154,12 @@ public class S {
 	 * @return adbbinary the adb binary file to excute
 	 */
 	public static String getAdbBin() {
+		if(Cfg.doUseCustomAdb()){
+			return Cfg.getCustomAdbBinary().equals("default") ? S.ADB_BIN.getAbsolutePath() : Cfg.getCustomAdbBinary();
+		} else if (HostInfo.haveAdbInPath()){
+			return "adb";
+		}
+		// if no custom one is set and no adb is in the path let's use the packed one 
 		return S.ADB_BIN.getAbsolutePath();
 	}
 

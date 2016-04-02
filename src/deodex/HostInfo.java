@@ -24,9 +24,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 
+import deodex.tools.CmdUtils;
 import deodex.tools.Logger;
 
 public class HostInfo {
+	static int testedAdb = 0;
+	static boolean haveAdb = false;
 	/**
 	 * 
 	 * @return NumberOfCores the number of available cpus (cores)
@@ -43,6 +46,18 @@ public class HostInfo {
 		return Runtime.getRuntime().maxMemory();
 	}
 
+	public static boolean haveAdbInPath (){
+		// we make sure we only call this once in a run time
+		// less excuting native commands is never fast ...
+		if(testedAdb == 0){
+			String[] cmd = {"adb","version"};
+			haveAdb = CmdUtils.runCommand(cmd) == 0;
+			testedAdb++;
+			return haveAdb;
+		}
+		return haveAdb;
+	}
+	
 	public static void logInfo() {
 		try {
 			File f = new File(Logger.LOG_FILE.getParentFile().getAbsolutePath() + "/system_info.txt");

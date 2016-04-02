@@ -44,7 +44,9 @@ public class Cfg {
 	private static final String HEAP_SIZE_PROP = "max.heap.size";
 	private static final String COMP_METHOD_PROP = "compression.method";
 	private static final String CHECK_UPDATE_PROP = "check.update.startup";
-
+	private static final String USE_CUSTOM_ADB_BINARY = "use.custom.adb.binary";
+	private static final String CUSTOM_ADB_BINARY = "custom.adb.binary";
+	
 	private static String currentLang;
 	private static String currentFont;
 
@@ -57,7 +59,8 @@ public class Cfg {
 	private static ArrayList<File> langFiles = new ArrayList<File>();
 	private static ArrayList<String> availableLang = new ArrayList<String>();
 	private static int checkForUpdate = 1;
-
+	private static int useCustomAdb = 0;
+	private static String customAdbBinary = "default";
 	/**
 	 * returns weither or not show the dialog to the user
 	 * 
@@ -153,6 +156,25 @@ public class Cfg {
 	 */
 	public static String getCurrentLang() {
 		return currentLang;
+	}
+
+	/**
+	 * @return doUseCustomAdb use or don't use a custom adb binary
+	 */
+	public static boolean doUseCustomAdb() {
+		return useCustomAdb != 0;
+	}
+
+	/**
+	 * @param DouseCustomAdb the useCustomAdb to set
+	 */
+	public static void setUseCustomAdb(boolean doUseCustomAdb) {
+		if( doUseCustomAdb)
+			Cfg.useCustomAdb = 1;
+		else
+			Cfg.useCustomAdb = 0;
+		PropReader.writeProp(Cfg.USE_CUSTOM_ADB_BINARY, "" + Cfg.useCustomAdb, new File(Cfg.CFG_PATH));
+
 	}
 
 	/**
@@ -369,6 +391,26 @@ public class Cfg {
 			// e.printStackTrace();
 			Cfg.setCheckForUpdate(1);
 		}
+		// read use or not custom adb binary
+		try {
+			Cfg.useCustomAdb = Integer.parseInt(PropReader.getProp(USE_CUSTOM_ADB_BINARY, new File(CFG_PATH)));
+			Cfg.setUseCustomAdb(Cfg.useCustomAdb == 1);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			Cfg.setUseCustomAdb(false);
+			Logger.appendLog("[Cfg][EX]" + e.getStackTrace());
+		}
+	
+		// read the custom adb path/command 
+		// eyes even if the use custom is false
+		try {
+			Cfg.customAdbBinary = PropReader.getProp(CUSTOM_ADB_BINARY, new File(CFG_PATH));
+			Cfg.setCustomAdbBinary(customAdbBinary);
+			if(Cfg.customAdbBinary.equals(null) || Cfg.customAdbBinary.equals("null"))
+				Cfg.setCustomAdbBinary("default");
+		} catch(Exception e){
+			Cfg.customAdbBinary = "default";
+		}
 	}
 
 	/**
@@ -469,7 +511,23 @@ public class Cfg {
 		PropReader.writeProp(Cfg.HEAP_SIZE_PROP, Cfg.maxHeadSize, new File(Cfg.CFG_PATH));
 		PropReader.writeProp(Cfg.COMP_METHOD_PROP, "" + Cfg.compresionMethod, new File(Cfg.CFG_PATH));
 		PropReader.writeProp(Cfg.CHECK_UPDATE_PROP, "" + Cfg.checkForUpdate, new File(Cfg.CFG_PATH));
+		PropReader.writeProp(Cfg.USE_CUSTOM_ADB_BINARY, "" + Cfg.useCustomAdb, new File(Cfg.CFG_PATH));
+		PropReader.writeProp(Cfg.CUSTOM_ADB_BINARY, "" + Cfg.customAdbBinary, new File(Cfg.CFG_PATH));
+	}
 
+	/**
+	 * @return the customAdbBinary
+	 */
+	public static String getCustomAdbBinary() {
+		return customAdbBinary;
+	}
+
+	/**
+	 * @param customAdbBinary the customAdbBinary to set
+	 */
+	public static void setCustomAdbBinary(String customAdbBinary) {
+		Cfg.customAdbBinary = customAdbBinary;
+		PropReader.writeProp(Cfg.CUSTOM_ADB_BINARY, "" + Cfg.customAdbBinary, new File(Cfg.CFG_PATH));
 	}
 
 }

@@ -65,6 +65,7 @@ public class AdbStreamReader implements Runnable {
 			while ((s = br.readLine()) != null) {
 				if (logger != null)
 					logger.addLog((this.streamType != null ? this.streamType : "") + s);
+					Logger.appendLog(s);
 			}
 			is.close();
 		} catch (Exception ex) {

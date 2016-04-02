@@ -16,8 +16,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package deodex.ui;
+package deodex.ui.advancedSettings;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -130,6 +131,7 @@ public class AdvancedSettings extends JPanel {
 	public static final String[] COMPRESSION_METHODS = { R.getString("0000058"), R.getString("0000059"),
 			R.getString("0000060") };
 	JTabbedPane p = new JTabbedPane();
+	JTabbedPane toolsTabs = new JTabbedPane();
 	// Strings
 	String tabbedTitleLang = R.getString("0000061");
 
@@ -152,7 +154,7 @@ public class AdvancedSettings extends JPanel {
 	public JLabel zipMethodLab = new JLabel(R.getString("0000053"));
 	public JLabel langsLab = new JLabel(R.getString("0000053"));
 	public JLabel threadLab = new JLabel(R.getString("0000054"));
-
+	public CustomizeAdbPanel adbPanel = new CustomizeAdbPanel();
 	public JLabel fontsLab = new JLabel(R.getString("0000065"));
 
 	public JLabel compresion = new JLabel(R.getString("0000067"));
@@ -249,12 +251,17 @@ public class AdvancedSettings extends JPanel {
 		this.compMethodCombo.setBounds(370, 140, 300, 40);
 		// fiead
 
+		
+		// tools pan 
+		//toolsPan.setLayout(new BorderLayout());
+		
+
 		// tabbed Pan props
 
 		// add components
 		p.add(this.tabbedTitleLang, this.langPan);
 		p.add(this.tabbedTitlePerf, this.performancePan);
-		// p.add(this.tabbedTitleTools, this.toolsPan);
+		p.add("adb",adbPanel);
 
 		// bounds
 		p.setBounds(10, 10, 780, 300);

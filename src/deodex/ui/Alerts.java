@@ -34,6 +34,7 @@ import deodex.tools.FilesUtils;
 import deodex.tools.PathUtils;
 import deodex.ui.about.AboutTabbedPan;
 import deodex.ui.about.CheckUpdatePan;
+import deodex.ui.advancedSettings.AdvancedSettings;
 
 public class Alerts {
 	static JDialog updateDialog = new JDialog();

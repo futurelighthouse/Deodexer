@@ -24,17 +24,32 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author lord-ralf-adolf
+ *
+ */
 public class ProcessHandler {
 	private final String[] cmd;
 	private static final Runtime rt = Runtime.getRuntime();
 
 	private int exitValue = -999;
+	/**
+	 * where all the stdin are stored so we can grab them after the process
+	 * has been excuted
+	 */
 	private ArrayList<String> sdtInput = new ArrayList<String>();
+	/**
+	 * where all the errin are stored 
+	 */
 	private ArrayList<String> errInput = new ArrayList<String>();
+	/**
+	 * compination of the two Inputs streams std and err
+	 */
 	private ArrayList<String> globalIn = new ArrayList<String>();
 
 	/**
-	 * @return the exitValue
+	 * @return the exitValue of the command we Launched 
 	 */
 	public int getProcessExitValue() {
 		return exitValue;

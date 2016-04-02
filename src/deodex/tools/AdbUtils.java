@@ -56,8 +56,11 @@ public class AdbUtils {
 		Runtime rt = Runtime.getRuntime();
 		for (int i = 0; i < remoteFiles.length; i++) {
 			String remoteFile = remoteFiles[i];
+			// this is needed for windows machine windows uses \ and adb expects / 
+			// this way 
+			String localPath = outputFolder.getAbsolutePath().replace('\\', '/');
 			String[] cmd = { S.getAdbBin(), "pull", "/system" + remoteFile,
-					new File(outputFolder.getAbsolutePath() + remoteFile).getAbsolutePath() };
+					localPath + remoteFile};
 			exitStatus[i] = -999;
 			try {
 				Process p = rt.exec(cmd);
