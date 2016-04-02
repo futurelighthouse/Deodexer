@@ -120,19 +120,20 @@ public class Deodexer {
 	 * @return true only if the boot.oat was deoptimized
 	 */
 	public static boolean oat2dexBoot(File bootOat) {
-		if (HostInfo.getMaxMemory() > S.SAFE_HEAP_SIZE) {
-			String[] cmd = { "boot", bootOat.getAbsolutePath() };
-			try {
-				Logger.appendLog("[Deodexer][I] trying to de-optimize boot.oat using oat2dex as library ....");
-				org.rh.smaliex.Main.main(cmd);
-			} catch (Exception e) {
-				return oat2dexBootCmdWay(bootOat);
-			}
-		} else {
-			Logger.appendLog("[Deodexer][W] detected heap size is too low running oat2dex in a separate process ...");
-			return oat2dexBootCmdWay(bootOat);
-		}
-		return S.getBootTmpDex().exists();
+		// lets remove this for now ,it's useless 
+//		if (HostInfo.getMaxMemory() > S.SAFE_HEAP_SIZE) {
+//			String[] cmd = { "boot", bootOat.getAbsolutePath() };
+//			try {
+//				Logger.appendLog("[Deodexer][I] trying to de-optimize boot.oat using oat2dex as library ....");
+//				org.rh.smaliex.Main.main(cmd);
+//			} catch (Exception e) {
+//				return oat2dexBootCmdWay(bootOat);
+//			}
+//		} else {
+//			Logger.appendLog("[Deodexer][W] detected heap size is too low running oat2dex in a separate process ...");
+//			return oat2dexBootCmdWay(bootOat);
+//		}
+		return oat2dexBootCmdWay(bootOat);
 	}
 
 	/**
