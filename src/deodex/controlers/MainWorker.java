@@ -148,7 +148,8 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 		File plugin = new File(this.folder.getAbsolutePath() + File.separator + "plugin");
 		File vendor = new File(this.folder.getAbsolutePath() + "/" + "vendor");
 		File dataApp = new File(this.folder.getAbsolutePath() + "/" + "data-app");
-		File[] folders = { app, privApp, plugin, vendor, dataApp };
+		File product = new File(this.folder.getAbsolutePath() +"/etc/product/applications");
+		File[] folders = { app, privApp, plugin, vendor, dataApp,product };
 		ArrayList<File> odexFiles = new ArrayList<File>();
 
 		for (File dir : folders) {
