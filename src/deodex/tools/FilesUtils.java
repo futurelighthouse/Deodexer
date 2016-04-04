@@ -92,7 +92,7 @@ public class FilesUtils {
 	 * @param in
 	 *            InputStream
 	 * @param dest
-	 *            destination file
+	 *            destination file 
 	 * @return true if the inputStream was saved to the file
 	 */
 	public static boolean copyFile(InputStream in, File dest) {
