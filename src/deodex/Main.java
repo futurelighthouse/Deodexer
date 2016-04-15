@@ -56,7 +56,7 @@ public class Main {
 	private static void argsReader(String[] args) {
 		R.initResources();
 		S.initTempFolders();
-		boolean zipalign = true;
+		boolean zipalign = false;
 		boolean sign = false;
 		boolean createZip = false;
 		boolean adbExtracted = false;
