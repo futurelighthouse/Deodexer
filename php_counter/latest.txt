@@ -1,1 +1,1 @@
-link=https://github.com/lord-ralf-adolf/Lordroid_One_Deodexer_To_Rule_Them_ALL/releases/download/v1.26/lordroid_ODTRTA_v1.26_ALL.tar.gz
+link=https://github.com/lord-ralf-adolf/Lordroid_One_Deodexer_To_Rule_Them_ALL/releases/download/v1.27/lordroid_ODTRTA_v1.27_ALL.tar.gz
