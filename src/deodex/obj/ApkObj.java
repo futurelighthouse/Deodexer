@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.Serializable;
 
 import deodex.S;
+import deodex.tools.FilesUtils;
 import deodex.tools.Logger;
 
 public class ApkObj implements Serializable {
@@ -70,12 +71,18 @@ public class ApkObj implements Serializable {
 		File f = odexFile;
 		while (true) {
 			f = f.getParentFile();
+			System.out.println(""+f);
 			if (f.isDirectory() && f.getName().equals(this.pureName)) {
 				this.folder = f;
 				break;
 			}
 		}
 		this.origApk = new File(folder.getAbsolutePath() + File.separator + this.pureName + S.APK_EXT);
+		// some miui roms don't have apks for some of the odex files 
+		// lets take care of that too 
+		if (!this.origApk.exists()){
+			FilesUtils.copyFile(S.BLANK_APK, this.origApk);
+		}
 
 	}
 

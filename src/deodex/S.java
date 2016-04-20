@@ -129,6 +129,8 @@ public class S {
 	public static final File EXTRACTED_SYSTEMS = new File(
 			PathUtils.getExcutionPath() + File.separator + "extracted_system_folders");
 	public static final File TOOLS_JAR = new File(PathUtils.getExcutionPath() + "/tools/tools.jar");
+	public static final File BLANK_APK = new File(PathUtils.getExcutionPath() + "/blanks/blank.apk");
+	
 	// temporary folders
 	private static File worker1Folder;
 	private static File worker2Folder;

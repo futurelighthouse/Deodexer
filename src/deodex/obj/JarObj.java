@@ -74,6 +74,9 @@ public class JarObj {
 			FilesUtils.copyFile(S.DUMMY_JAR, this.origJar);
 		}
 		this.tmpFolder = new File(tmpFolder.getAbsolutePath() + File.separator + this.absoluteName);
+		this.tmpFolder.mkdirs() ;
+		tmpFolder.mkdirs();
+		
 		if (!this.tmpFolder.exists())
 			return false;
 		tmpCompodex = new File(this.tmpFolder.getAbsolutePath() + File.separator + this.odexFile.getName());
