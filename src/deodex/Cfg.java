@@ -418,6 +418,11 @@ public class Cfg {
 	 *            the compresionMathod to set
 	 */
 	public static void setCompresionMathod(int compresionMathod) {
+		// lets make sure 7zip is available before we set it 
+		// if it's not available lets ignore the change
+		if(compresionMathod == S.SEVENZIP_METHOD && !Cfg.is7ZipAvailable()){
+			return;
+		}
 		Cfg.compresionMethod = compresionMathod;
 		PropReader.writeProp(Cfg.COMP_METHOD_PROP, "" + Cfg.compresionMethod, new File(Cfg.CFG_PATH));
 	}
