@@ -282,7 +282,24 @@ public class Main {
 		}
 		SessionCfg.setSign(sign);
 		SessionCfg.setZipalign(zipalign);
-		MainWorker mainWorker = new MainWorker(systemFolder, logger, 1, new CommandLineWorker(createZip));
+		int jobs =1;
+		try {
+			jobs = Cfg.getMaxJobs();
+		} catch (Exception e){
+			e.printStackTrace();
+			jobs = (HostInfo.availableCpus() >= 4 ? 4 : (HostInfo.availableCpus() >= 2 ? 2 : 1));
+		}
+		logger.addLog("[INFO] About to start task :");
+		if(!fromdevice)
+			logger.addLog("[INFO] System Folder : "+systemFolder);
+		else
+			logger.addLog("[INFO] System Folder : will be extracted from device");
+		logger.addLog("[INFO] Max Jobs : "+jobs);
+		logger.addLog("[INFO] Will zipalign ? : "+ (zipalign ? "YES":"NO") );
+		logger.addLog("[INFO] Will reSign ? : "+ (sign ? "YES":"NO") );
+		logger.addLog("[INFO] Will create flashable zip ? : "+ (createZip ? "YES":"NO") );
+		
+		MainWorker mainWorker = new MainWorker(systemFolder, logger, jobs, new CommandLineWorker(createZip));
 		Thread t = new Thread(mainWorker);
 		t.start();
 	}
