@@ -71,7 +71,6 @@ public class ApkObj implements Serializable {
 		File f = odexFile;
 		while (true) {
 			f = f.getParentFile();
-			System.out.println(""+f);
 			if (f.isDirectory() && f.getName().equals(this.pureName)) {
 				this.folder = f;
 				break;
