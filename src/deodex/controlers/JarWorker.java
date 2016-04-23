@@ -219,6 +219,8 @@ public class JarWorker implements Runnable, Watchable {
 		FilesUtils.deleteFiles(FilesUtils.searchExactFileNames(
 				new File(SessionCfg.getSystemFolder() + File.separator + S.SYSTEM_FRAMEWORK),
 				jar.getOdexFile().getName()));
+		// make sure we delete all related odex files 
+		FilesUtils.deleteFiles(FilesUtils.searchExactFileNames(jar.frameworkFolder, jar.getOdexFile().getName()));
 		return true;
 	}
 

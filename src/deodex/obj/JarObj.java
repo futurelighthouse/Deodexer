@@ -43,6 +43,7 @@ public class JarObj {
 	File tmpJar;
 	String absoluteName;
 
+	public final File frameworkFolder ;
 	/**
 	 * 
 	 * @param odexFile
@@ -57,9 +58,22 @@ public class JarObj {
 		} else if (odexFile.getName().endsWith(S.COMP_GZ_ODEX_EXT)) {
 			absoluteName = odexFile.getName().substring(0, odexFile.getName().lastIndexOf(".odex.gz"));
 		}
-
-		this.origJar = new File(SessionCfg.getSystemFolder().getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK
-				+ File.separator + absoluteName + ".jar");
+		File systemFolder = odexFile.getParentFile();
+		if(odexFile.getAbsolutePath().contains(File.separator+"system"+File.separator))
+		while (true){
+			if(systemFolder.getName().equals("system"))
+				break;
+			systemFolder = systemFolder.getParentFile();
+		}
+		if(systemFolder.equals(odexFile.getParentFile())){
+			this.origJar = new File(SessionCfg.getSystemFolder().getAbsolutePath() + File.separator + S.SYSTEM_FRAMEWORK
+					+ File.separator + absoluteName + ".jar");
+			frameworkFolder = new File(SessionCfg.getSystemFolder().getAbsolutePath()+ File.separator + S.SYSTEM_FRAMEWORK);
+		} else {
+			this.origJar = new File(systemFolder + File.separator + S.SYSTEM_FRAMEWORK
+					+ File.separator + absoluteName + ".jar");
+			frameworkFolder = new File(systemFolder + File.separator + S.SYSTEM_FRAMEWORK);
+		}
 
 	}
 

@@ -49,6 +49,8 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 	private ArrayList<File> worker3List = new ArrayList<File>();
 
 	private ArrayList<File> worker4List = new ArrayList<File>();
+	
+	private ArrayList<File> otherJars = new ArrayList<File>();
 	private LoggerPan logPan;
 
 	final ThreadWatcher threadWatcher;
@@ -70,6 +72,7 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 	WebProgressBar progressBar;
 	ArrayList<Runnable> tasks = new ArrayList<Runnable>();
 
+	
 	/**
 	 * 
 	 * @param folder
@@ -149,16 +152,41 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 		File vendor = new File(this.folder.getAbsolutePath() + "/" + "vendor");
 		File dataApp = new File(this.folder.getAbsolutePath() + "/" + "data-app");
 		File product = new File(this.folder.getAbsolutePath() +"/etc/product/applications");
-		File[] folders = { app, privApp, plugin, vendor, dataApp,product };
+		File[] foldersList = { app, privApp, plugin,dataApp,product };
+		
+		ArrayList<File> folders = new ArrayList<File>();
+		for(File f : foldersList){
+			folders.add(f);
+		}
+		for (File f : vendor.listFiles()){
+			if(f.isDirectory()){
+				folders.add(f);
+			}
+		}
 		ArrayList<File> odexFiles = new ArrayList<File>();
-
+		
+		
+		
 		for (File dir : folders) {
 			if (dir.exists() && dir.listFiles().length > 0)
 				for (String ext : exts) {
-					odexFiles.addAll(FilesUtils.searchrecursively(dir, ext));
+					odexFiles.addAll(ArrayUtils.deletedupricates(FilesUtils.searchrecursively(dir, ext)));
 				}
 		}
-		return ArrayUtils.deletedupricates(odexFiles);
+		// lets take the jar odexes out 
+		ArrayList<File> jarOdexes = new ArrayList<File>();
+		for(File f : odexFiles ){
+			ArrayList<File> jarFiles = new ArrayList<File>();
+			String jarFileName = f.getName().substring(0, f.getName().lastIndexOf("."))+".jar";
+			jarFiles.addAll(FilesUtils.searchExactFileNames(vendor, jarFileName));
+			if(!jarFiles.isEmpty()){
+				jarOdexes.add(f);
+			}
+			
+		}
+		odexFiles.removeAll(jarOdexes);
+		this.otherJars.addAll(jarOdexes);
+		return odexFiles;
 
 	}
 
@@ -215,7 +243,7 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 
 		File bootFiles = new File(S.getBootTmpDex().getAbsolutePath());
 
-		// TODO init apklist here
+		
 		worker1List = this.getapkOdexFiles();
 
 		int half = worker1List.size() / 2;
@@ -255,7 +283,9 @@ public class MainWorker implements Runnable, ThreadWatcher, Watchable {
 		temapkinfram = ArrayUtils.deletedupricates(temapkinfram);
 		this.worker1List.addAll(temapkinfram);
 		this.worker3List.removeAll(temapkinfram);
-
+		if(!this.otherJars.isEmpty()){
+			this.worker3List.addAll(otherJars);
+		}
 		apk1 = new ApkWorker(worker1List, logPan, S.getWorker1Folder(), SessionCfg.isSign(), SessionCfg.isZipalign());
 		apk2 = new ApkWorker(worker2List, logPan, S.getWorker2Folder(), SessionCfg.isSign(), SessionCfg.isZipalign());
 		jar = new JarWorker(worker3List, logPan, S.getWorker3Folder());
