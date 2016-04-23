@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import deodex.Cfg;
+import deodex.R;
 import deodex.S;
 import deodex.SessionCfg;
 
@@ -50,7 +51,7 @@ public class Deodexer {
 		}
 		ArrayList<File> failSafeOat2dex = ArrayUtils.deletedupricates(FilesUtils.searchrecursively(S.OAT2DEX_FAILSAFE_PATH, ".jar"));
 		for (File f : failSafeOat2dex){
-			System.out.println(f);
+			Logger.appendLog("[Deodexer][W]"+R.getString(S.LOG_WARNING)+" odex file : "+odexFile+" fail trying with "+f.getName());
 			String cmd1[] = {"java",Cfg.getMaxHeadSizeArg(),"-jar",f.getAbsolutePath(),odexFile.getAbsolutePath(),S.getBootTmpDex().getAbsolutePath()};
 			CmdUtils.runCommand(cmd1);
 			if(dexFile.exists()){
